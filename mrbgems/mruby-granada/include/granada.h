@@ -34,10 +34,25 @@ struct nk_colorf granada_colorf_get(mrb_state *mrb, mrb_value obj);
 mrb_value granada_image_wrap(mrb_state *mrb, struct nk_image img);
 struct nk_image granada_image_get(mrb_state *mrb, mrb_value obj);
 
+typedef struct granada_ctx {
+  struct nk_context nk;
+  struct nk_font_atlas atlas;
+  struct nk_font *font;
+  float *floats;
+  int floats_cap;
+} granada_ctx;
+
 struct nk_context *granada_context_ptr(mrb_state *mrb, mrb_value obj);
+granada_ctx *granada_ctx_get(mrb_state *mrb, mrb_value obj);
+float *granada_ctx_floats(mrb_state *mrb, mrb_value obj, int n);
+mrb_value granada_yield(mrb_state *mrb, void *data);
+void granada_define_native_fwd(mrb_state *mrb, struct RClass *native, const char *name, mrb_aspec spec);
 
 void mrb_granada_types_init(mrb_state *mrb, struct RClass *mod, struct RClass *native);
 void mrb_granada_flags_init(mrb_state *mrb, struct RClass *mod);
 void mrb_granada_context_init(mrb_state *mrb, struct RClass *mod, struct RClass *native);
+void mrb_granada_input_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_window_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_layout_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
 
 #endif /* GRANADA_H */

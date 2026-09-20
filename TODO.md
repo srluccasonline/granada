@@ -22,10 +22,10 @@ Nuklear **v4.13.3**. mruby **4.0.0**. Autor: Luccas Brandão Bezerra. Apache-2.0
 - [x] Types: Rect, Vec2, Color, ColorF, Image (NineSlice / Handle depois)
 - [x] Flags / enums (WINDOW_*, TEXT_*, KEY_*, MOUSE_*, …)
 - [x] Context (init / clear / free)
-- [ ] Input
+- [x] Input
 - [ ] Drawing iterators (`nk__begin`, `nk_convert`, …)
-- [ ] Window (`nk_begin` / `nk_end` + queries; `MRB_ENSURE`)
-- [ ] Layout
+- [x] Window (`nk_begin` / `nk_end` + queries; `MRB_ENSURE`)
+- [x] Layout
 - [ ] Groups
 - [ ] Tree / list_view
 - [ ] Widget queries / spacing / disable

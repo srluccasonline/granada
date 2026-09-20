@@ -14,14 +14,14 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 |---|---:|---:|---:|---:|---:|
 | Api | 0 | 0 | 0 | 0 | 0 |
 | Context | 7 | 4 | 3 | 0 | 0 |
-| Input | 30 | 30 | 0 | 0 | 0 |
+| Input | 30 | 22 | 8 | 0 | 0 |
 | Drawing | 25 | 25 | 0 | 0 | 0 |
-| Window | 34 | 34 | 0 | 0 | 0 |
-| Layout | 24 | 24 | 0 | 0 | 0 |
+| Window | 34 | 4 | 30 | 0 | 0 |
+| Layout | 24 | 0 | 24 | 0 | 0 |
 | Group | 8 | 8 | 0 | 0 | 0 |
 | Tree | 9 | 9 | 0 | 0 | 0 |
 | List View | 2 | 2 | 0 | 0 | 0 |
-| Widget | 12 | 12 | 0 | 0 | 0 |
+| Widget | 12 | 11 | 1 | 0 | 0 |
 | Text | 25 | 17 | 0 | 0 | 8 |
 | Link | 12 | 12 | 0 | 0 | 0 |
 | Button | 20 | 20 | 0 | 0 | 0 |
@@ -80,15 +80,15 @@ Enums: `nk_keys`, `nk_buttons`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_input_begin` | `input_begin` | `void` |
-| `unbound` | `nk_input_motion` | `input_motion` | `void` |
-| `unbound` | `nk_input_key` | `input_key` | `void` |
-| `unbound` | `nk_input_button` | `input_button` | `void` |
-| `unbound` | `nk_input_scroll` | `input_scroll` | `void` |
-| `unbound` | `nk_input_char` | `input_char` | `void` |
+| `native` | `nk_input_begin` | `input_begin` | `void` |
+| `native` | `nk_input_motion` | `input_motion` | `void` |
+| `native` | `nk_input_key` | `input_key` | `void` |
+| `native` | `nk_input_button` | `input_button` | `void` |
+| `native` | `nk_input_scroll` | `input_scroll` | `void` |
+| `native` | `nk_input_char` | `input_char` | `void` |
 | `unbound` | `nk_input_glyph` | `input_glyph` | `void` |
-| `unbound` | `nk_input_unicode` | `input_unicode` | `void` |
-| `unbound` | `nk_input_end` | `input_end` | `void` |
+| `native` | `nk_input_unicode` | `input_unicode` | `void` |
+| `native` | `nk_input_end` | `input_end` | `void` |
 | `unbound` | `nk_input_has_mouse_click` | `input_has_mouse_click` | `nk_bool` |
 | `unbound` | `nk_input_has_mouse_click_in_rect` | `input_has_mouse_click_in_rect` | `nk_bool` |
 | `unbound` | `nk_input_has_mouse_click_in_button_rect` | `input_has_mouse_click_in_button_rect` | `nk_bool` |
@@ -151,40 +151,40 @@ Enums: `nk_panel_flags`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_begin` | `begin` | `nk_bool` |
-| `unbound` | `nk_begin_titled` | `begin_titled` | `nk_bool` |
-| `unbound` | `nk_end` | `end` | `void` |
-| `unbound` | `nk_window_get_bounds` | `window_get_bounds` | `struct nk_rect` |
-| `unbound` | `nk_window_get_position` | `window_get_position` | `struct nk_vec2` |
-| `unbound` | `nk_window_get_size` | `window_get_size` | `struct nk_vec2` |
-| `unbound` | `nk_window_get_width` | `window_get_width` | `float` |
-| `unbound` | `nk_window_get_height` | `window_get_height` | `float` |
+| `native` | `nk_begin` | `begin` | `nk_bool` |
+| `native` | `nk_begin_titled` | `begin_titled` | `nk_bool` |
+| `native` | `nk_end` | `end` | `void` |
+| `native` | `nk_window_get_bounds` | `window_get_bounds` | `struct nk_rect` |
+| `native` | `nk_window_get_position` | `window_get_position` | `struct nk_vec2` |
+| `native` | `nk_window_get_size` | `window_get_size` | `struct nk_vec2` |
+| `native` | `nk_window_get_width` | `window_get_width` | `float` |
+| `native` | `nk_window_get_height` | `window_get_height` | `float` |
 | `unbound` | `nk_window_get_panel` | `window_get_panel` | `struct nk_panel*` |
-| `unbound` | `nk_window_get_content_region` | `window_get_content_region` | `struct nk_rect` |
-| `unbound` | `nk_window_get_content_region_min` | `window_get_content_region_min` | `struct nk_vec2` |
-| `unbound` | `nk_window_get_content_region_max` | `window_get_content_region_max` | `struct nk_vec2` |
-| `unbound` | `nk_window_get_content_region_size` | `window_get_content_region_size` | `struct nk_vec2` |
+| `native` | `nk_window_get_content_region` | `window_get_content_region` | `struct nk_rect` |
+| `native` | `nk_window_get_content_region_min` | `window_get_content_region_min` | `struct nk_vec2` |
+| `native` | `nk_window_get_content_region_max` | `window_get_content_region_max` | `struct nk_vec2` |
+| `native` | `nk_window_get_content_region_size` | `window_get_content_region_size` | `struct nk_vec2` |
 | `unbound` | `nk_window_get_canvas` | `window_get_canvas` | `struct nk_command_buffer*` |
-| `unbound` | `nk_window_get_scroll` | `window_get_scroll` | `void` |
-| `unbound` | `nk_window_has_focus` | `window_has_focus` | `nk_bool` |
-| `unbound` | `nk_window_is_hovered` | `window_is_hovered` | `nk_bool` |
-| `unbound` | `nk_window_is_collapsed` | `window_is_collapsed` | `nk_bool` |
-| `unbound` | `nk_window_is_closed` | `window_is_closed` | `nk_bool` |
-| `unbound` | `nk_window_is_hidden` | `window_is_hidden` | `nk_bool` |
-| `unbound` | `nk_window_is_active` | `window_is_active` | `nk_bool` |
-| `unbound` | `nk_window_is_any_hovered` | `window_is_any_hovered` | `nk_bool` |
-| `unbound` | `nk_item_is_any_active` | `item_is_any_active` | `nk_bool` |
-| `unbound` | `nk_window_set_bounds` | `window_set_bounds` | `void` |
-| `unbound` | `nk_window_set_position` | `window_set_position` | `void` |
-| `unbound` | `nk_window_set_size` | `window_set_size` | `void` |
-| `unbound` | `nk_window_set_focus` | `window_set_focus` | `void` |
-| `unbound` | `nk_window_set_scroll` | `window_set_scroll` | `void` |
-| `unbound` | `nk_window_close` | `window_close` | `void` |
-| `unbound` | `nk_window_collapse` | `window_collapse` | `void` |
+| `native` | `nk_window_get_scroll` | `window_get_scroll` | `void` |
+| `native` | `nk_window_has_focus` | `window_has_focus` | `nk_bool` |
+| `native` | `nk_window_is_hovered` | `window_is_hovered` | `nk_bool` |
+| `native` | `nk_window_is_collapsed` | `window_is_collapsed` | `nk_bool` |
+| `native` | `nk_window_is_closed` | `window_is_closed` | `nk_bool` |
+| `native` | `nk_window_is_hidden` | `window_is_hidden` | `nk_bool` |
+| `native` | `nk_window_is_active` | `window_is_active` | `nk_bool` |
+| `native` | `nk_window_is_any_hovered` | `window_is_any_hovered` | `nk_bool` |
+| `native` | `nk_item_is_any_active` | `item_is_any_active` | `nk_bool` |
+| `native` | `nk_window_set_bounds` | `window_set_bounds` | `void` |
+| `native` | `nk_window_set_position` | `window_set_position` | `void` |
+| `native` | `nk_window_set_size` | `window_set_size` | `void` |
+| `native` | `nk_window_set_focus` | `window_set_focus` | `void` |
+| `native` | `nk_window_set_scroll` | `window_set_scroll` | `void` |
+| `native` | `nk_window_close` | `window_close` | `void` |
+| `native` | `nk_window_collapse` | `window_collapse` | `void` |
 | `unbound` | `nk_window_collapse_if` | `window_collapse_if` | `void` |
-| `unbound` | `nk_window_show` | `window_show` | `void` |
+| `native` | `nk_window_show` | `window_show` | `void` |
 | `unbound` | `nk_window_show_if` | `window_show_if` | `void` |
-| `unbound` | `nk_rule_horizontal` | `rule_horizontal` | `void` |
+| `native` | `nk_rule_horizontal` | `rule_horizontal` | `void` |
 
 ## Layout
 
@@ -192,30 +192,30 @@ Enums: `nk_widget_align`, `nk_widget_alignment`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_layout_set_min_row_height` | `layout_set_min_row_height` | `void` |
-| `unbound` | `nk_layout_reset_min_row_height` | `layout_reset_min_row_height` | `void` |
-| `unbound` | `nk_layout_widget_bounds` | `layout_widget_bounds` | `struct nk_rect` |
-| `unbound` | `nk_layout_ratio_from_pixel` | `layout_ratio_from_pixel` | `float` |
-| `unbound` | `nk_layout_row_dynamic` | `layout_row_dynamic` | `void` |
-| `unbound` | `nk_layout_row_static` | `layout_row_static` | `void` |
-| `unbound` | `nk_layout_row_begin` | `layout_row_begin` | `void` |
-| `unbound` | `nk_layout_row_push` | `layout_row_push` | `void` |
-| `unbound` | `nk_layout_row_end` | `layout_row_end` | `void` |
-| `unbound` | `nk_layout_row` | `layout_row` | `void` |
-| `unbound` | `nk_layout_row_template_begin` | `layout_row_template_begin` | `void` |
-| `unbound` | `nk_layout_row_template_push_dynamic` | `layout_row_template_push_dynamic` | `void` |
-| `unbound` | `nk_layout_row_template_push_variable` | `layout_row_template_push_variable` | `void` |
-| `unbound` | `nk_layout_row_template_push_static` | `layout_row_template_push_static` | `void` |
-| `unbound` | `nk_layout_row_template_end` | `layout_row_template_end` | `void` |
-| `unbound` | `nk_layout_space_begin` | `layout_space_begin` | `void` |
-| `unbound` | `nk_layout_space_push` | `layout_space_push` | `void` |
-| `unbound` | `nk_layout_space_end` | `layout_space_end` | `void` |
-| `unbound` | `nk_layout_space_bounds` | `layout_space_bounds` | `struct nk_rect` |
-| `unbound` | `nk_layout_space_to_screen` | `layout_space_to_screen` | `struct nk_vec2` |
-| `unbound` | `nk_layout_space_to_local` | `layout_space_to_local` | `struct nk_vec2` |
-| `unbound` | `nk_layout_space_rect_to_screen` | `layout_space_rect_to_screen` | `struct nk_rect` |
-| `unbound` | `nk_layout_space_rect_to_local` | `layout_space_rect_to_local` | `struct nk_rect` |
-| `unbound` | `nk_spacer` | `spacer` | `void` |
+| `native` | `nk_layout_set_min_row_height` | `layout_set_min_row_height` | `void` |
+| `native` | `nk_layout_reset_min_row_height` | `layout_reset_min_row_height` | `void` |
+| `native` | `nk_layout_widget_bounds` | `layout_widget_bounds` | `struct nk_rect` |
+| `native` | `nk_layout_ratio_from_pixel` | `layout_ratio_from_pixel` | `float` |
+| `native` | `nk_layout_row_dynamic` | `layout_row_dynamic` | `void` |
+| `native` | `nk_layout_row_static` | `layout_row_static` | `void` |
+| `native` | `nk_layout_row_begin` | `layout_row_begin` | `void` |
+| `native` | `nk_layout_row_push` | `layout_row_push` | `void` |
+| `native` | `nk_layout_row_end` | `layout_row_end` | `void` |
+| `native` | `nk_layout_row` | `layout_row` | `void` |
+| `native` | `nk_layout_row_template_begin` | `layout_row_template_begin` | `void` |
+| `native` | `nk_layout_row_template_push_dynamic` | `layout_row_template_push_dynamic` | `void` |
+| `native` | `nk_layout_row_template_push_variable` | `layout_row_template_push_variable` | `void` |
+| `native` | `nk_layout_row_template_push_static` | `layout_row_template_push_static` | `void` |
+| `native` | `nk_layout_row_template_end` | `layout_row_template_end` | `void` |
+| `native` | `nk_layout_space_begin` | `layout_space_begin` | `void` |
+| `native` | `nk_layout_space_push` | `layout_space_push` | `void` |
+| `native` | `nk_layout_space_end` | `layout_space_end` | `void` |
+| `native` | `nk_layout_space_bounds` | `layout_space_bounds` | `struct nk_rect` |
+| `native` | `nk_layout_space_to_screen` | `layout_space_to_screen` | `struct nk_vec2` |
+| `native` | `nk_layout_space_to_local` | `layout_space_to_local` | `struct nk_vec2` |
+| `native` | `nk_layout_space_rect_to_screen` | `layout_space_rect_to_screen` | `struct nk_rect` |
+| `native` | `nk_layout_space_rect_to_local` | `layout_space_rect_to_local` | `struct nk_rect` |
+| `native` | `nk_spacer` | `spacer` | `void` |
 
 ## Group
 
@@ -268,7 +268,7 @@ Enums: `nk_widget_layout_states`, `nk_widget_states`
 | `unbound` | `nk_widget_is_hovered` | `widget_is_hovered` | `nk_bool` |
 | `unbound` | `nk_widget_is_mouse_clicked` | `widget_is_mouse_clicked` | `nk_bool` |
 | `unbound` | `nk_widget_has_mouse_click_down` | `widget_has_mouse_click_down` | `nk_bool` |
-| `unbound` | `nk_spacing` | `spacing` | `void` |
+| `native` | `nk_spacing` | `spacing` | `void` |
 | `unbound` | `nk_widget_disable_begin` | `widget_disable_begin` | `void` |
 | `unbound` | `nk_widget_disable_end` | `widget_disable_end` | `void` |
 
