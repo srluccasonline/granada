@@ -1,6 +1,6 @@
 # DSL Granada
 
-A DSL é a camada de cima: Ruby idiomático por cima de `Granada::Context`. O bloco de `Granada.app` (e o de `window`) roda com `instance_eval` em um `Granada::UI`.
+A DSL é a camada de cima: Ruby idiomático por cima de `Granada::Context`. O bloco de `Granada.app` roda com `instance_eval` em um `Granada::UI` **reutilizado todo frame**. Ivars (`@vol`) são desse objeto: inicialize **dentro** do bloco (`@vol ||= 0.6`). Fora do `app` o `@vol` é outro objeto (o `main` do script) e no primeiro frame seria `nil`.
 
 ## Forma
 

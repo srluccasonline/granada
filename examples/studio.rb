@@ -12,20 +12,23 @@ DARK  = Granada::Color.rgb(24, 24, 32)
 INK   = Granada::Color.rgb(255, 255, 255)
 MUTED = Granada::Color.rgb(160, 160, 176)
 
-@tab      = 0
-@mute     = false
-@vol      = 0.62
-@gain     = 4
-@name     = "Granada"
-@device   = 0
-@devices  = ["Default", "Headphones", "Monitor"]
-@quality  = 1
-@tint     = Granada::ColorF.new(0.86, 0.08, 0.24, 1.0)
-@hist     = Array.new(40) { 0.15 }
-@tracks   = (0...80).map { |i| "track %02d — take #{(i % 7) + 1}" % i }
-@status   = "ready"
+# Ivars live on the UI object (instance_eval). Initialize inside the block
+# with ||= so the first frame isn't nil. The same UI is reused every frame.
 
 Granada.app title: "Granada Studio", width: 860, height: 620 do
+  @tab     ||= 0
+  @mute      = false if @mute.nil?
+  @vol     ||= 0.62
+  @gain    ||= 4
+  @name    ||= "Granada"
+  @device  ||= 0
+  @devices ||= ["Default", "Headphones", "Monitor"]
+  @quality ||= 1
+  @tint    ||= Granada::ColorF.new(0.86, 0.08, 0.24, 1.0)
+  @hist    ||= Array.new(40) { 0.15 }
+  @tracks  ||= (0...80).map { |i| "track %02d — take #{(i % 7) + 1}" % i }
+  @status  ||= "ready"
+
   window "studio", fill: true do
     menubar do
       row height: 25, static: 70, cols: 2 do

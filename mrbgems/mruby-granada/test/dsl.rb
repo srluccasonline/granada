@@ -35,3 +35,17 @@ end
 assert('Granada.app without a block raises') do
   assert_raise(ArgumentError) { Granada.app }
 end
+
+assert('Granada::UI label with color accepts a string') do
+  ctx = Granada::Context.new
+  ctx.input_begin
+  ctx.input_end
+  ui = Granada::UI.new(ctx, width: 200, height: 100)
+  ui.window("lbl", fill: true) do
+    ui.label "tinted", align: :left, color: Granada::Color.rgb(220, 20, 60)
+    ui.label nil, color: Granada::Color.rgb(255, 255, 255)
+  end
+  assert_true(true)
+  ctx.clear
+  ctx.free
+end

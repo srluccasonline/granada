@@ -7,10 +7,9 @@ puts "Granada #{Granada::VERSION} (Nuklear #{Granada::NUKLEAR_VERSION})"
 puts "host:    #{Granada::Host.available? ? 'GLFW+GL3' : 'not built'}"
 
 if Granada::Host.available?
-  @on = true
-  @vol = 0.6
-
   Granada.app title: "Granada", width: 640, height: 420 do
+    @on = true if @on.nil?
+    @vol ||= 0.6
     window "demo", fill: true, border: true do
       row height: 32, cols: 2 do
         label "Granada", align: :center

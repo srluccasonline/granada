@@ -44,7 +44,7 @@ end
 
 | Tipo de dado | Onde guardar |
 |---|---|
-| “o checkbox está ligado?” | ivar / local / struct da *aplicação* (`@vsync`) |
+| “o checkbox está ligado?” | ivar **dentro** do bloco `Granada.app` (`@vsync ||= true`) — o UI é o `self` e vive entre frames |
 | texto do campo | `String` Ruby (`@name`) |
 | valor do slider | `Float` / `Integer` (`@fov`) |
 | “esta janela está aberta?” | bool da aplicação; se for falso, **não chame** `window` |

@@ -3,14 +3,14 @@
 
 raise "Granada was built without GLFW" unless Granada::Host.available?
 
-@on = true
-@vol = 0.35
-@count = 4
-@name = "Granada"
-@choice = 0
-@items = ["ruby", "mruby", "nuklear"]
-
 Granada.app title: "Granada kitchen sink", width: 720, height: 520 do
+  @on = true if @on.nil?
+  @vol ||= 0.35
+  @count ||= 4
+  @name ||= "Granada"
+  @choice ||= 0
+  @items ||= ["ruby", "mruby", "nuklear"]
+
   window "sink", fill: true do
     menubar do
       row height: 25, static: 80, cols: 1 do

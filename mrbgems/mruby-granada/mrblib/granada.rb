@@ -69,6 +69,7 @@ module Granada
     end
 
     def label(text, align: :left, color: nil, wrap: false)
+      text = text.to_s
       a = align_value(align)
       if wrap && color
         @ctx.label_colored_wrap(text, color)
