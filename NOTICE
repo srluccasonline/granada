@@ -1,0 +1,19 @@
+Granada
+Copyright 2026 Luccas Brandão Bezerra
+
+Licensed under the Apache License, Version 2.0.
+See LICENSE for the full license text.
+
+This product includes software developed by third parties:
+
+Nuklear
+  Immediate-mode ANSI C GUI toolkit (single header).
+  Homepage: https://github.com/Immediate-Mode-UI/Nuklear
+  Version vendored: v4.13.3
+  License: MIT or public domain (see vendor/nuklear/LICENSE)
+
+mruby
+  Lightweight Ruby implementation.
+  Homepage: https://github.com/mruby/mruby
+  Version pinned by the build: 4.0.0 (cloned at build time, not committed)
+  License: MIT
