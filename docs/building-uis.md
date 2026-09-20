@@ -48,6 +48,8 @@ end
 - `row` dinâmico: colunas dividem a largura
 - `row_static`: largura fixa por item
 - `group` / `tree`: regiões aninhadas com scroll próprio
+- `list_view`: só as linhas visíveis de uma lista longa (o bloco recebe o índice)
+- `canvas`: desenho livre (`fill_rect`, `stroke_line`, …) no retângulo que o layout reservou
 - `window fill: true`: um painel do tamanho da janela nativa (bom para “tela cheia” de menu)
 
 Se um label “centralizado” não parece no meio, falta altura na row. Texto alinhado ao centro vertical usa a altura da célula.

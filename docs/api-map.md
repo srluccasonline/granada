@@ -15,13 +15,13 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 | Api | 0 | 0 | 0 | 0 | 0 |
 | Context | 7 | 4 | 3 | 0 | 0 |
 | Input | 30 | 22 | 8 | 0 | 0 |
-| Drawing | 25 | 25 | 0 | 0 | 0 |
-| Window | 34 | 4 | 30 | 0 | 0 |
+| Drawing | 25 | 15 | 10 | 0 | 0 |
+| Window | 34 | 3 | 31 | 0 | 0 |
 | Layout | 24 | 0 | 24 | 0 | 0 |
 | Group | 8 | 3 | 5 | 0 | 0 |
 | Tree | 9 | 4 | 5 | 0 | 0 |
-| List View | 2 | 2 | 0 | 0 | 0 |
-| Widget | 12 | 1 | 11 | 0 | 0 |
+| List View | 2 | 0 | 2 | 0 | 0 |
+| Widget | 12 | 0 | 12 | 0 | 0 |
 | Text | 25 | 2 | 15 | 0 | 8 |
 | Link | 12 | 11 | 1 | 0 | 0 |
 | Button | 20 | 10 | 10 | 0 | 0 |
@@ -41,13 +41,13 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 | Contextual | 9 | 5 | 4 | 0 | 0 |
 | Tooltip | 12 | 5 | 3 | 0 | 4 |
 | Menu | 18 | 12 | 6 | 0 | 0 |
-| Style | 21 | 15 | 6 | 0 | 0 |
+| Style | 21 | 8 | 13 | 0 | 0 |
 | Color | 50 | 32 | 18 | 0 | 0 |
-| Image | 16 | 14 | 2 | 0 | 0 |
+| Image | 16 | 12 | 4 | 0 | 0 |
 | Math | 14 | 6 | 8 | 0 | 0 |
 | String | 35 | 35 | 0 | 0 | 0 |
 | Utf-8 | 4 | 4 | 0 | 0 | 0 |
-| Font | 14 | 14 | 0 | 0 | 0 |
+| Font | 14 | 12 | 2 | 0 | 0 |
 | Memory Buffer | 10 | 10 | 0 | 0 | 0 |
 | Text Editor | 19 | 12 | 7 | 0 | 0 |
 | Draw List | 27 | 27 | 0 | 0 | 0 |
@@ -125,24 +125,24 @@ Enums: `nk_anti_aliasing`, `nk_convert_result`, `nk_command_type`, `nk_command_c
 | `unbound` | `nk__draw_begin` | `_draw_begin` | `const struct nk_draw_command*` |
 | `unbound` | `nk__draw_end` | `_draw_end` | `const struct nk_draw_command*` |
 | `unbound` | `nk__draw_next` | `_draw_next` | `const struct nk_draw_command*` |
-| `unbound` | `nk_stroke_line` | `stroke_line` | `void` |
+| `native` | `nk_stroke_line` | `stroke_line` | `void` |
 | `unbound` | `nk_stroke_curve` | `stroke_curve` | `void` |
-| `unbound` | `nk_stroke_rect` | `stroke_rect` | `void` |
-| `unbound` | `nk_stroke_circle` | `stroke_circle` | `void` |
+| `native` | `nk_stroke_rect` | `stroke_rect` | `void` |
+| `native` | `nk_stroke_circle` | `stroke_circle` | `void` |
 | `unbound` | `nk_stroke_arc` | `stroke_arc` | `void` |
-| `unbound` | `nk_stroke_triangle` | `stroke_triangle` | `void` |
+| `native` | `nk_stroke_triangle` | `stroke_triangle` | `void` |
 | `unbound` | `nk_stroke_polyline` | `stroke_polyline` | `void` |
 | `unbound` | `nk_stroke_polygon` | `stroke_polygon` | `void` |
-| `unbound` | `nk_fill_rect` | `fill_rect` | `void` |
+| `native` | `nk_fill_rect` | `fill_rect` | `void` |
 | `unbound` | `nk_fill_rect_multi_color` | `fill_rect_multi_color` | `void` |
-| `unbound` | `nk_fill_circle` | `fill_circle` | `void` |
+| `native` | `nk_fill_circle` | `fill_circle` | `void` |
 | `unbound` | `nk_fill_arc` | `fill_arc` | `void` |
-| `unbound` | `nk_fill_triangle` | `fill_triangle` | `void` |
+| `native` | `nk_fill_triangle` | `fill_triangle` | `void` |
 | `unbound` | `nk_fill_polygon` | `fill_polygon` | `void` |
-| `unbound` | `nk_draw_image` | `draw_image` | `void` |
+| `native` | `nk_draw_image` | `draw_image` | `void` |
 | `unbound` | `nk_draw_nine_slice` | `draw_nine_slice` | `void` |
-| `unbound` | `nk_draw_text` | `draw_text` | `void` |
-| `unbound` | `nk_push_scissor` | `push_scissor` | `void` |
+| `native` | `nk_draw_text` | `draw_text` | `void` |
+| `native` | `nk_push_scissor` | `push_scissor` | `void` |
 | `unbound` | `nk_push_custom` | `push_custom` | `void` |
 
 ## Window
@@ -164,7 +164,7 @@ Enums: `nk_panel_flags`
 | `native` | `nk_window_get_content_region_min` | `window_get_content_region_min` | `struct nk_vec2` |
 | `native` | `nk_window_get_content_region_max` | `window_get_content_region_max` | `struct nk_vec2` |
 | `native` | `nk_window_get_content_region_size` | `window_get_content_region_size` | `struct nk_vec2` |
-| `unbound` | `nk_window_get_canvas` | `window_get_canvas` | `struct nk_command_buffer*` |
+| `native` | `nk_window_get_canvas` | `window_get_canvas` | `struct nk_command_buffer*` |
 | `native` | `nk_window_get_scroll` | `window_get_scroll` | `void` |
 | `native` | `nk_window_has_focus` | `window_has_focus` | `nk_bool` |
 | `native` | `nk_window_is_hovered` | `window_is_hovered` | `nk_bool` |
@@ -250,8 +250,8 @@ Structs: `nk_list_view`, `nk_context`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_list_view_begin` | `list_view_begin` | `nk_bool` |
-| `unbound` | `nk_list_view_end` | `list_view_end` | `void` |
+| `native` | `nk_list_view_begin` | `list_view_begin` | `nk_bool` |
+| `native` | `nk_list_view_end` | `list_view_end` | `void` |
 
 ## Widget
 
@@ -259,7 +259,7 @@ Enums: `nk_widget_layout_states`, `nk_widget_states`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_widget` | `widget` | `enum nk_widget_layout_states` |
+| `native` | `nk_widget` | `widget` | `enum nk_widget_layout_states` |
 | `native` | `nk_widget_bounds` | `widget_bounds` | `struct nk_rect` |
 | `native` | `nk_widget_position` | `widget_position` | `struct nk_vec2` |
 | `native` | `nk_widget_size` | `widget_size` | `struct nk_vec2` |
@@ -569,22 +569,22 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 | `unbound` | `nk_style_load_cursor` | `style_load_cursor` | `void` |
 | `unbound` | `nk_style_load_all_cursors` | `style_load_all_cursors` | `void` |
 | `native` | `nk_style_get_color_by_name` | `style_get_color_by_name` | `const char*` |
-| `unbound` | `nk_style_set_font` | `style_set_font` | `void` |
+| `native` | `nk_style_set_font` | `style_set_font` | `void` |
 | `native` | `nk_style_set_cursor` | `style_set_cursor` | `nk_bool` |
 | `native` | `nk_style_show_cursor` | `style_show_cursor` | `void` |
 | `native` | `nk_style_hide_cursor` | `style_hide_cursor` | `void` |
 | `unbound` | `nk_style_push_font` | `style_push_font` | `nk_bool` |
-| `unbound` | `nk_style_push_float` | `style_push_float` | `nk_bool` |
-| `unbound` | `nk_style_push_vec2` | `style_push_vec2` | `nk_bool` |
+| `native` | `nk_style_push_float` | `style_push_float` | `nk_bool` |
+| `native` | `nk_style_push_vec2` | `style_push_vec2` | `nk_bool` |
 | `unbound` | `nk_style_push_style_item` | `style_push_style_item` | `nk_bool` |
 | `unbound` | `nk_style_push_flags` | `style_push_flags` | `nk_bool` |
-| `unbound` | `nk_style_push_color` | `style_push_color` | `nk_bool` |
+| `native` | `nk_style_push_color` | `style_push_color` | `nk_bool` |
 | `unbound` | `nk_style_pop_font` | `style_pop_font` | `nk_bool` |
-| `unbound` | `nk_style_pop_float` | `style_pop_float` | `nk_bool` |
-| `unbound` | `nk_style_pop_vec2` | `style_pop_vec2` | `nk_bool` |
+| `native` | `nk_style_pop_float` | `style_pop_float` | `nk_bool` |
+| `native` | `nk_style_pop_vec2` | `style_pop_vec2` | `nk_bool` |
 | `unbound` | `nk_style_pop_style_item` | `style_pop_style_item` | `nk_bool` |
 | `unbound` | `nk_style_pop_flags` | `style_pop_flags` | `nk_bool` |
-| `unbound` | `nk_style_pop_color` | `style_pop_color` | `nk_bool` |
+| `native` | `nk_style_pop_color` | `style_pop_color` | `nk_bool` |
 
 ## Color
 
@@ -652,11 +652,11 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 | `native` | `nk_image_id` | `image_id` | `struct nk_image` |
 | `native` | `nk_image_is_subimage` | `image_is_subimage` | `nk_bool` |
 | `unbound` | `nk_subimage_ptr` | `subimage_ptr` | `struct nk_image` |
-| `unbound` | `nk_subimage_id` | `subimage_id` | `struct nk_image` |
+| `native` | `nk_subimage_id` | `subimage_id` | `struct nk_image` |
 | `unbound` | `nk_subimage_handle` | `subimage_handle` | `struct nk_image` |
 | `unbound` | `nk_nine_slice_handle` | `nine_slice_handle` | `struct nk_nine_slice` |
 | `unbound` | `nk_nine_slice_ptr` | `nine_slice_ptr` | `struct nk_nine_slice` |
-| `unbound` | `nk_nine_slice_id` | `nine_slice_id` | `struct nk_nine_slice` |
+| `native` | `nk_nine_slice_id` | `nine_slice_id` | `struct nk_nine_slice` |
 | `unbound` | `nk_nine_slice_is_sub9slice` | `nine_slice_is_sub9slice` | `int` |
 | `unbound` | `nk_sub9slice_ptr` | `sub9slice_ptr` | `struct nk_nine_slice` |
 | `unbound` | `nk_sub9slice_id` | `sub9slice_id` | `struct nk_nine_slice` |
@@ -745,9 +745,9 @@ Enums: `nk_font_coord_type`, `nk_font_atlas_format`
 | `unbound` | `nk_font_atlas_init_custom` | `font_atlas_init_custom` | `void` |
 | `unbound` | `nk_font_atlas_begin` | `font_atlas_begin` | `void` |
 | `unbound` | `nk_font_config` | `font_config` | `struct nk_font_config` |
-| `unbound` | `nk_font_atlas_add_default` | `font_atlas_add_default` | `struct nk_font*` |
+| `native` | `nk_font_atlas_add_default` | `font_atlas_add_default` | `struct nk_font*` |
 | `unbound` | `nk_font_atlas_add_from_memory` | `font_atlas_add_from_memory` | `struct nk_font*` |
-| `unbound` | `nk_font_atlas_add_from_file` | `font_atlas_add_from_file` | `struct nk_font*` |
+| `native` | `nk_font_atlas_add_from_file` | `font_atlas_add_from_file` | `struct nk_font*` |
 | `unbound` | `nk_font_atlas_add_compressed_base85` | `font_atlas_add_compressed_base85` | `struct nk_font*` |
 | `unbound` | `nk_font_atlas_bake` | `font_atlas_bake` | `const void*` |
 | `unbound` | `nk_font_atlas_end` | `font_atlas_end` | `void` |

@@ -9,3 +9,7 @@ assert('Granada::Host.size is a pair') do
   s = Granada::Host.size
   assert_equal(2, s.length)
 end
+
+assert('Granada::Host.image without a window raises') do
+  assert_raise(RuntimeError) { Granada::Host.image("missing.png") }
+end

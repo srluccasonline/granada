@@ -18,6 +18,7 @@ extern const struct mrb_data_type granada_rect_type;
 extern const struct mrb_data_type granada_color_type;
 extern const struct mrb_data_type granada_colorf_type;
 extern const struct mrb_data_type granada_image_type;
+extern const struct mrb_data_type granada_nineslice_type;
 extern const struct mrb_data_type granada_context_type;
 
 mrb_value granada_vec2_wrap(mrb_state *mrb, struct nk_vec2 v);
@@ -34,6 +35,9 @@ struct nk_colorf granada_colorf_get(mrb_state *mrb, mrb_value obj);
 
 mrb_value granada_image_wrap(mrb_state *mrb, struct nk_image img);
 struct nk_image granada_image_get(mrb_state *mrb, mrb_value obj);
+
+mrb_value granada_nineslice_wrap(mrb_state *mrb, struct nk_nine_slice s);
+struct nk_nine_slice granada_nineslice_get(mrb_state *mrb, mrb_value obj);
 
 typedef struct granada_ctx {
   struct nk_context nk;
@@ -66,6 +70,7 @@ void mrb_granada_layout_init(mrb_state *mrb, struct RClass *ctx, struct RClass *
 void mrb_granada_widgets_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
 void mrb_granada_containers_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
 void mrb_granada_style_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_canvas_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
 void mrb_granada_host_init(mrb_state *mrb, struct RClass *mod);
 
 #endif /* GRANADA_H */

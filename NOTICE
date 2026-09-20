@@ -14,6 +14,11 @@ Nuklear
   GLFW+OpenGL 3 demo backend: vendor/nuklear/demo/glfw_opengl3/nuklear_glfw_gl3.h
     (same Nuklear tree / license; used only by Granada::Host)
 
+stb_image
+  PNG/JPEG decoder used by Granada::Host.image.
+  Homepage: https://github.com/nothings/stb
+  License: MIT / public domain (see vendor/stb/stb_image.h)
+
 mruby
   Lightweight Ruby implementation.
   Homepage: https://github.com/mruby/mruby

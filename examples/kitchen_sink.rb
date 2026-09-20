@@ -60,5 +60,16 @@ Granada.app title: "Granada kitchen sink", width: 720, height: 520 do
         end
       end
     end
+
+    list_view "rows", 40, row_height: 22, height: 90 do |i|
+      row height: 22, cols: 1 do
+        label "row #{i}"
+      end
+    end
+
+    canvas height: 64 do |r|
+      fill_rect r, Granada::Color.rgb(24, 24, 32), 6
+      stroke_rect r, Granada::Color.rgb(220, 20, 60), 1.5, 6
+    end
   end
 end

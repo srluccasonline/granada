@@ -9,6 +9,7 @@ MRuby::Gem::Specification.new('mruby-granada') do |spec|
 
   spec.cc.include_paths << nuklear
   spec.cc.include_paths << File.join(nuklear, 'demo/glfw_opengl3')
+  spec.cc.include_paths << File.join(repo_root, 'vendor/stb')
   spec.cc.include_paths << File.join(spec.dir, 'include')
 
   spec.cc.flags << '-Wno-unused-function'

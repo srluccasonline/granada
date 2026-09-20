@@ -151,6 +151,58 @@ module Granada
       @ctx.plot(type, values)
     end
 
+    def list_view(id, count, row_height: 24, height: 180, **opts, &block)
+      @ctx.layout_row_dynamic(height, 1)
+      @ctx.list_view(id, row_height, count, window_flags(opts), &block)
+    end
+
+    def canvas(height: 120)
+      row height: height, cols: 1 do
+        bounds = @ctx.widget_alloc
+        yield bounds
+      end
+    end
+
+    def fill_rect(rect, color, rounding = 0)
+      @ctx.fill_rect(rect, color, rounding)
+    end
+
+    def stroke_rect(rect, color, thickness = 1.0, rounding = 0)
+      @ctx.stroke_rect(rect, color, thickness, rounding)
+    end
+
+    def stroke_line(x0, y0, x1, y1, color, thickness = 1.0)
+      @ctx.stroke_line(x0, y0, x1, y1, color, thickness)
+    end
+
+    def fill_circle(rect, color)
+      @ctx.fill_circle(rect, color)
+    end
+
+    def draw_text(rect, text, color, background = nil)
+      if background
+        @ctx.draw_text(rect, text, color, background)
+      else
+        @ctx.draw_text(rect, text, color)
+      end
+    end
+
+    def style_push(slot, value, &block)
+      @ctx.style_push(slot, value, &block)
+    end
+
+    def disable(&block)
+      @ctx.disable(&block)
+    end
+
+    def image_file(path)
+      Host.image(path)
+    end
+
+    def popup(name, bounds, type: POPUP_STATIC, **opts, &block)
+      @ctx.popup_begin(type, name, bounds, window_flags(opts), &block)
+    end
+
     private
 
     def align_value(align)
@@ -184,13 +236,13 @@ module Granada
     end
   end
 
-  def self.app(title: "Granada", width: 800, height: 600, vsync: true, &block)
+  def self.app(title: "Granada", width: 800, height: 600, vsync: true, font: nil, font_size: 13, &block)
     raise ArgumentError, "Granada.app requires a block" unless block
     unless Host.available?
       raise RuntimeError, "Granada was built without GLFW (install glfw3 + glew and rebuild)"
     end
     ui = UI.new(nil, width: width, height: height)
-    Host.run(title, width, height, vsync) do |ctx, w, h|
+    Host.run(title, width, height, vsync, font, font_size.to_f) do |ctx, w, h|
       ui.prepare!(ctx, w, h)
       ui.instance_eval(&block)
     end

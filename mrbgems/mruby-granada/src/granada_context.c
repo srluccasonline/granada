@@ -263,5 +263,6 @@ mrb_granada_context_init(mrb_state *mrb, struct RClass *mod, struct RClass *nati
   mrb_granada_layout_init(mrb, ctx, native);
   mrb_granada_widgets_init(mrb, ctx, native);
   mrb_granada_containers_init(mrb, ctx, native);
+  mrb_granada_canvas_init(mrb, ctx, native);
   mrb_granada_style_init(mrb, ctx, native);
 }

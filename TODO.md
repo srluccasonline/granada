@@ -27,7 +27,8 @@ Nuklear **v4.13.3**. mruby **4.0.0**. Autor: Luccas Brandão Bezerra. Apache-2.0
 - [x] Window (`nk_begin` / `nk_end` + queries; `MRB_ENSURE`)
 - [x] Layout
 - [x] Groups
-- [x] Tree (hashed + state_push; list_view depois)
+- [x] Tree (hashed + state_push)
+- [x] List view
 - [x] Widget queries / spacing / disable
 - [x] Text / label (sem `*f` vararg)
 - [x] Links (`link_label`)
@@ -44,10 +45,11 @@ Nuklear **v4.13.3**. mruby **4.0.0**. Autor: Luccas Brandão Bezerra. Apache-2.0
 - [x] Contextual
 - [x] Tooltip (sem `*f` vararg)
 - [x] Menu / menubar
-- [x] Style (`style_from_table`, cursor; push/pop de ponteiro C fica unbound)
+- [x] Style (`style_from_table`, cursor, `style_push` com slots nomeados)
 - [x] Color helpers (já nos types)
-- [ ] Image / nine-slice extras (já tem `Image` + `nk_image`)
-- [ ] Font atlas (o host GLFW faz o stash; API Ruby depois)
+- [x] Image / nine-slice (`Host.image`, `Image#nine_slice`)
+- [x] Font (`Granada.app font:, font_size:`; default atlas se omitir)
+- [x] Canvas (`widget_alloc`, `fill_rect`, `stroke_*`, `draw_text`)
 - [ ] Math / rect / vec helpers extras
 - [ ] Buffer / string / utf-8 (só o que Native precisa; resto `skip` no mapa)
 

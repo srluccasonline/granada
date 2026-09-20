@@ -69,3 +69,5 @@ O host cria o `nk_context` do backend GLFW e o envolve num `Granada::Context` co
 - `nk_plot_function` com callback C cru
 - vertex layout completo de `nk_convert` (fica para quem escrever outro backend)
 - plugins de filtro de edit além dos built-in do Nuklear
+
+Fonte TTF e PNG são **API Ruby** (`Granada.app font:`, `Host.image`). Quem sobe o bitmap/textura é o host C da plataforma. GLFW faz isso hoje; outro backend repete o upload, não a DSL.

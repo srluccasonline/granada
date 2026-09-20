@@ -48,6 +48,15 @@ end
 | `tree(id:, title:) { }` | `nk_tree_push_hashed` / `nk_tree_pop` |
 | `menubar` / `menu` / `menu_item` | menubar + menu |
 | `quit` | `Host.quit!` (Esc / Ctrl+Q / Cmd+Q também) |
+| `list_view(id, count) { \|i\| }` | `nk_list_view_begin` / `end` (só as linhas visíveis) |
+| `canvas(height:) { \|rect\| }` | `widget_alloc` + `fill_rect` / `stroke_*` / `draw_text` |
+| `style_push("button.rounding", 8) { }` | `nk_style_push_*` / `pop_*` |
+| `image_file("icon.png")` | `Host.image` (PNG/JPEG → textura do host) |
+| `Granada.app font: "x.ttf", font_size: 16` | atlas TTF no host GLFW |
+
+`Host.image` só funciona **dentro** de `Granada.app` (OpenGL já ligado). Guarde o `Image` numa ivar no primeiro frame.
+
+Slots de `style_push`: `text.color`, `button.rounding`, `button.padding`, `button.text_normal`, `window.padding`, `window.rounding`, `window.background`, … (ver `granada_style.c`).
 
 Native continua público: `Granada::Native` e `Granada::Context` para quem quiser o C na cara.
 

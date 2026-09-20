@@ -12,6 +12,7 @@ static struct RClass *cRect;
 static struct RClass *cColor;
 static struct RClass *cColorF;
 static struct RClass *cImage;
+static struct RClass *cNineSlice;
 
 static void
 value_free(mrb_state *mrb, void *ptr)
@@ -24,6 +25,7 @@ const struct mrb_data_type granada_rect_type   = { "Granada::Rect",   value_free
 const struct mrb_data_type granada_color_type  = { "Granada::Color",  value_free };
 const struct mrb_data_type granada_colorf_type = { "Granada::ColorF", value_free };
 const struct mrb_data_type granada_image_type  = { "Granada::Image",  value_free };
+const struct mrb_data_type granada_nineslice_type = { "Granada::NineSlice", value_free };
 
 static void *
 alloc_copy(mrb_state *mrb, const void *src, size_t n)
@@ -114,6 +116,23 @@ granada_image_get(mrb_state *mrb, mrb_value obj)
   struct nk_image *p = (struct nk_image *)mrb_data_get_ptr(mrb, obj, &granada_image_type);
   if (!p) {
     mrb_raise(mrb, E_RUNTIME_ERROR, "uninitialized Granada::Image");
+  }
+  return *p;
+}
+
+mrb_value
+granada_nineslice_wrap(mrb_state *mrb, struct nk_nine_slice s)
+{
+  struct nk_nine_slice *p = (struct nk_nine_slice *)alloc_copy(mrb, &s, sizeof(s));
+  return mrb_obj_value(Data_Wrap_Struct(mrb, cNineSlice, &granada_nineslice_type, p));
+}
+
+struct nk_nine_slice
+granada_nineslice_get(mrb_state *mrb, mrb_value obj)
+{
+  struct nk_nine_slice *p = (struct nk_nine_slice *)mrb_data_get_ptr(mrb, obj, &granada_nineslice_type);
+  if (!p) {
+    mrb_raise(mrb, E_RUNTIME_ERROR, "uninitialized Granada::NineSlice");
   }
   return *p;
 }
@@ -542,6 +561,43 @@ image_subimage(mrb_state *mrb, mrb_value self)
   return mrb_bool_value(nk_image_is_subimage(&img));
 }
 
+static mrb_value
+image_nine_slice(mrb_state *mrb, mrb_value self)
+{
+  mrb_int l, t, r, b;
+  struct nk_image img = granada_image_get(mrb, self);
+  mrb_get_args(mrb, "iiii", &l, &t, &r, &b);
+  return granada_nineslice_wrap(mrb, nk_nine_slice_id(img.handle.id, (nk_ushort)l, (nk_ushort)t, (nk_ushort)r, (nk_ushort)b));
+}
+
+static mrb_value
+nineslice_s_id(mrb_state *mrb, mrb_value self)
+{
+  mrb_int id, l, t, r, b;
+  (void)self;
+  mrb_get_args(mrb, "iiiii", &id, &l, &t, &r, &b);
+  return granada_nineslice_wrap(mrb, nk_nine_slice_id((int)id, (nk_ushort)l, (nk_ushort)t, (nk_ushort)r, (nk_ushort)b));
+}
+
+static mrb_value
+native_nine_slice_id(mrb_state *mrb, mrb_value self)
+{
+  mrb_int id, l, t, r, b;
+  (void)self;
+  mrb_get_args(mrb, "iiiii", &id, &l, &t, &r, &b);
+  return granada_nineslice_wrap(mrb, nk_nine_slice_id((int)id, (nk_ushort)l, (nk_ushort)t, (nk_ushort)r, (nk_ushort)b));
+}
+
+static mrb_value
+native_subimage_id(mrb_state *mrb, mrb_value self)
+{
+  mrb_int id, w, h;
+  mrb_value region;
+  (void)self;
+  mrb_get_args(mrb, "iiio", &id, &w, &h, &region);
+  return granada_image_wrap(mrb, nk_subimage_id((int)id, (nk_ushort)w, (nk_ushort)h, granada_rect_get(mrb, region)));
+}
+
 /* --- Native constructors (1:1 with nk_*) --- */
 
 static mrb_value native_vec2(mrb_state *mrb, mrb_value self)
@@ -820,6 +876,11 @@ mrb_granada_types_init(mrb_state *mrb, struct RClass *mod, struct RClass *native
   mrb_define_method(mrb, cImage, "h", image_h, MRB_ARGS_NONE());
   mrb_define_method(mrb, cImage, "id", image_id, MRB_ARGS_NONE());
   mrb_define_method(mrb, cImage, "subimage?", image_subimage, MRB_ARGS_NONE());
+  mrb_define_method(mrb, cImage, "nine_slice", image_nine_slice, MRB_ARGS_REQ(4));
+
+  cNineSlice = mrb_define_class_under(mrb, mod, "NineSlice", mrb->object_class);
+  MRB_SET_INSTANCE_TT(cNineSlice, MRB_TT_CDATA);
+  mrb_define_class_method(mrb, cNineSlice, "id", nineslice_s_id, MRB_ARGS_REQ(5));
 
   mrb_define_module_function(mrb, native, "vec2", native_vec2, MRB_ARGS_REQ(2));
   mrb_define_module_function(mrb, native, "vec2i", native_vec2i, MRB_ARGS_REQ(2));
@@ -846,4 +907,6 @@ mrb_granada_types_init(mrb_state *mrb, struct RClass *mod, struct RClass *native
   mrb_define_module_function(mrb, native, "rgb_factor", native_rgb_factor, MRB_ARGS_REQ(2));
   mrb_define_module_function(mrb, native, "rgba_u32", native_rgba_u32, MRB_ARGS_REQ(1));
   mrb_define_module_function(mrb, native, "image_id", native_image_id, MRB_ARGS_REQ(1));
+  mrb_define_module_function(mrb, native, "subimage_id", native_subimage_id, MRB_ARGS_REQ(4));
+  mrb_define_module_function(mrb, native, "nine_slice_id", native_nine_slice_id, MRB_ARGS_REQ(5));
 }

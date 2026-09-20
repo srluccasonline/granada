@@ -3,6 +3,7 @@
  * begin/end pairs take a block and always close via MRB_ENSURE when open.
  */
 #include "granada.h"
+#include <string.h>
 
 static mrb_value
 ctx_group_begin(mrb_state *mrb, mrb_value self)
@@ -310,6 +311,60 @@ static mrb_value ctx_menu_close(mrb_state *mrb, mrb_value self)
 static mrb_value ctx_menu_end(mrb_state *mrb, mrb_value self)
 { nk_menu_end(granada_context_ptr(mrb, self)); return self; }
 
+typedef struct {
+  mrb_value blk;
+  struct nk_list_view *view;
+} list_run;
+
+static mrb_value
+list_run_body(mrb_state *mrb, void *data)
+{
+  list_run *r = (list_run *)data;
+  int i;
+  for (i = r->view->begin; i < r->view->end; i++) {
+    mrb_value idx = mrb_int_value(mrb, i);
+    mrb_yield_argv(mrb, r->blk, 1, &idx);
+  }
+  return mrb_true_value();
+}
+
+static mrb_value
+ctx_list_view(mrb_state *mrb, mrb_value self)
+{
+  char *id;
+  mrb_int row_h, count, flags = 0;
+  mrb_value blk = mrb_nil_value();
+  struct nk_list_view view;
+  struct nk_context *ctx = granada_context_ptr(mrb, self);
+  nk_bool open;
+
+  mrb_get_args(mrb, "zii|i&", &id, &row_h, &count, &flags, &blk);
+  memset(&view, 0, sizeof(view));
+  open = nk_list_view_begin(ctx, &view, id, (nk_flags)flags, (int)row_h, (int)count);
+  if (mrb_nil_p(blk)) {
+    mrb_value a = mrb_ary_new_capa(mrb, 4);
+    mrb_ary_push(mrb, a, mrb_bool_value(open));
+    mrb_ary_push(mrb, a, mrb_int_value(mrb, view.begin));
+    mrb_ary_push(mrb, a, mrb_int_value(mrb, view.end));
+    mrb_ary_push(mrb, a, mrb_int_value(mrb, view.count));
+    if (open) nk_list_view_end(&view);
+    return a;
+  }
+  if (!open) {
+    return mrb_false_value();
+  }
+  {
+    list_run r;
+    mrb_value result;
+    r.blk = blk;
+    r.view = &view;
+    MRB_ENSURE(mrb, result, list_run_body, &r) {
+      nk_list_view_end(&view);
+    }
+    return result;
+  }
+}
+
 void
 mrb_granada_containers_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native)
 {
@@ -324,7 +379,7 @@ mrb_granada_containers_init(mrb_state *mrb, struct RClass *ctx, struct RClass *n
     "contextual_begin", "contextual_item_label", "contextual_close", "contextual_end",
     "tooltip", "tooltip_begin", "tooltip_end",
     "menubar_begin", "menubar_end", "menu_begin_label", "menu_item_label",
-    "menu_close", "menu_end",
+    "menu_close", "menu_end", "list_view",
     0
   };
 
@@ -372,6 +427,7 @@ mrb_granada_containers_init(mrb_state *mrb, struct RClass *ctx, struct RClass *n
   mrb_define_method(mrb, ctx, "menu_item_label", ctx_menu_item_label, MRB_ARGS_ARG(1, 1) | MRB_ARGS_BLOCK());
   mrb_define_method(mrb, ctx, "menu_close", ctx_menu_close, MRB_ARGS_NONE());
   mrb_define_method(mrb, ctx, "menu_end", ctx_menu_end, MRB_ARGS_NONE());
+  mrb_define_method(mrb, ctx, "list_view", ctx_list_view, MRB_ARGS_ARG(3, 1) | MRB_ARGS_BLOCK());
 
   granada_define_native_fwds(mrb, native, fwds);
 }

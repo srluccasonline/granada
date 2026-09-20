@@ -62,8 +62,14 @@ Granada.app title: "Granada", width: 800, height: 600 do
     end
     @on = checkbox("Enabled", @on)
     @vol = slider(@vol, min: 0.0, max: 1.0)
+    list_view "rows", 50, height: 120 do |i|
+      label "row #{i}"
+    end
   end
 end
+
+# opcional: Granada.app font: "MyFont.ttf", font_size: 16
+# imagens: @icon ||= image_file("icon.png")  # só dentro do app (host GL)
 ```
 
 `Granada::Native` e `Granada::Context` são o mapeamento 1:1. A DSL (`Granada.app` / `Granada::UI`) é o caminho usual. Sem GLFW, `Granada::Host.available?` é `false` e os testes exercitam Native headless.

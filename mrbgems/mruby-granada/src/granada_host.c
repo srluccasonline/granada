@@ -36,6 +36,15 @@ static mrb_value host_size(mrb_state *mrb, mrb_value self)
   return a;
 }
 
+static mrb_value
+host_image(mrb_state *mrb, mrb_value self)
+{
+  (void)self;
+  mrb_raise(mrb, E_RUNTIME_ERROR,
+            "Granada was built without GLFW (install glfw3 + glew and rebuild)");
+  return mrb_nil_value();
+}
+
 #else /* GRANADA_HAS_GLFW */
 
 #define GLFW_INCLUDE_NONE
@@ -45,12 +54,30 @@ static mrb_value host_size(mrb_state *mrb, mrb_value self)
 #define NK_GLFW_GL3_IMPLEMENTATION
 #include "nuklear_glfw_gl3.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#define STBI_ONLY_PNG
+#define STBI_ONLY_JPEG
+#define STBI_NO_STDIO
+#include "stb_image.h"
+
 #define GRANADA_MAX_VERTEX_BUFFER   (512 * 1024)
 #define GRANADA_MAX_ELEMENT_BUFFER  (128 * 1024)
+#define GRANADA_MAX_IMAGES          64
 
 static struct nk_glfw g_glfw;
 static GLFWwindow *g_win;
 static int g_quit;
+static GLuint g_images[GRANADA_MAX_IMAGES];
+static int g_image_n;
+
+static void
+host_free_images(void)
+{
+  if (g_image_n > 0) {
+    glDeleteTextures((GLsizei)g_image_n, g_images);
+  }
+  g_image_n = 0;
+}
 
 static void
 host_error(int code, const char *desc)
@@ -80,6 +107,66 @@ static mrb_value host_size(mrb_state *mrb, mrb_value self)
   mrb_ary_push(mrb, a, mrb_int_value(mrb, w));
   mrb_ary_push(mrb, a, mrb_int_value(mrb, h));
   return a;
+}
+
+static mrb_value
+host_image(mrb_state *mrb, mrb_value self)
+{
+  mrb_value path_v;
+  const char *path;
+  FILE *fp;
+  unsigned char *filebuf = 0, *pixels;
+  long flen;
+  int w = 0, h = 0, n = 0;
+  GLuint tex;
+  struct nk_image img;
+
+  (void)self;
+  if (!g_win) {
+    mrb_raise(mrb, E_RUNTIME_ERROR, "Host.image requires an active Granada.app window");
+  }
+  mrb_get_args(mrb, "o", &path_v);
+  path = mrb_string_cstr(mrb, path_v);
+  fp = fopen(path, "rb");
+  if (!fp) {
+    mrb_raisef(mrb, E_RUNTIME_ERROR, "cannot open image '%s'", path);
+  }
+  fseek(fp, 0, SEEK_END);
+  flen = ftell(fp);
+  fseek(fp, 0, SEEK_SET);
+  if (flen <= 0) {
+    fclose(fp);
+    mrb_raisef(mrb, E_RUNTIME_ERROR, "empty image '%s'", path);
+  }
+  filebuf = (unsigned char *)mrb_malloc(mrb, (size_t)flen);
+  if (fread(filebuf, 1, (size_t)flen, fp) != (size_t)flen) {
+    fclose(fp);
+    mrb_free(mrb, filebuf);
+    mrb_raisef(mrb, E_RUNTIME_ERROR, "failed to read image '%s'", path);
+  }
+  fclose(fp);
+  pixels = stbi_load_from_memory(filebuf, (int)flen, &w, &h, &n, 4);
+  mrb_free(mrb, filebuf);
+  if (!pixels) {
+    mrb_raisef(mrb, E_RUNTIME_ERROR, "cannot decode image '%s'", path);
+  }
+  if (g_image_n >= GRANADA_MAX_IMAGES) {
+    stbi_image_free(pixels);
+    mrb_raise(mrb, E_RUNTIME_ERROR, "too many Host.image textures");
+  }
+  glGenTextures(1, &tex);
+  glBindTexture(GL_TEXTURE_2D, tex);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+  stbi_image_free(pixels);
+  g_images[g_image_n++] = tex;
+  img = nk_image_id((int)tex);
+  img.w = (nk_ushort)w;
+  img.h = (nk_ushort)h;
+  return granada_image_wrap(mrb, img);
 }
 
 typedef struct host_loop {
@@ -130,18 +217,20 @@ host_loop_body(mrb_state *mrb, void *data)
 static mrb_value
 host_run(mrb_state *mrb, mrb_value self)
 {
-  mrb_value title_v, blk;
+  mrb_value title_v, blk, font_path = mrb_nil_value();
   mrb_int width = 800, height = 600;
   mrb_bool vsync = TRUE;
+  mrb_float font_size = 13.0;
   const char *title;
   struct nk_context *nk;
   struct nk_font_atlas *atlas;
+  struct nk_font *ui_font;
   mrb_value ctx_obj;
   mrb_value result;
   host_loop loop;
 
   (void)self;
-  mrb_get_args(mrb, "o|iib&", &title_v, &width, &height, &vsync, &blk);
+  mrb_get_args(mrb, "o|iibof&", &title_v, &width, &height, &vsync, &font_path, &font_size, &blk);
   if (mrb_nil_p(blk)) {
     mrb_raise(mrb, E_ARGUMENT_ERROR, "Granada::Host.run requires a block");
   }
@@ -152,6 +241,7 @@ host_run(mrb_state *mrb, mrb_value self)
   memset(&g_glfw, 0, sizeof(g_glfw));
   g_win = NULL;
   g_quit = 0;
+  g_image_n = 0;
 
   glfwSetErrorCallback(host_error);
   if (!glfwInit()) {
@@ -180,8 +270,23 @@ host_run(mrb_state *mrb, mrb_value self)
 
   nk = nk_glfw3_init(&g_glfw, g_win, NK_GLFW3_INSTALL_CALLBACKS);
   nk_glfw3_font_stash_begin(&g_glfw, &atlas);
-  nk_font_atlas_add_default(atlas, 13.0f, 0);
+  if (!mrb_nil_p(font_path)) {
+    const char *fp = mrb_string_cstr(mrb, font_path);
+    float px = (font_size > 0) ? (float)font_size : 13.0f;
+    ui_font = nk_font_atlas_add_from_file(atlas, fp, px, 0);
+    if (!ui_font) {
+      nk_glfw3_shutdown(&g_glfw);
+      glfwDestroyWindow(g_win);
+      g_win = NULL;
+      glfwTerminate();
+      mrb_raisef(mrb, E_RUNTIME_ERROR, "cannot load font '%s'", fp);
+    }
+  } else {
+    float px = (font_size > 0) ? (float)font_size : 13.0f;
+    ui_font = nk_font_atlas_add_default(atlas, px, 0);
+  }
   nk_glfw3_font_stash_end(&g_glfw);
+  if (ui_font) nk_style_set_font(nk, &ui_font->handle);
 
   ctx_obj = granada_context_wrap_external(mrb, nk);
   mrb_gc_register(mrb, ctx_obj);
@@ -192,6 +297,7 @@ host_run(mrb_state *mrb, mrb_value self)
   MRB_ENSURE(mrb, result, host_loop_body, &loop) {
     mrb_gc_unregister(mrb, ctx_obj);
     mrb_gc_unregister(mrb, blk);
+    host_free_images();
     nk_glfw3_shutdown(&g_glfw);
     if (g_win) glfwDestroyWindow(g_win);
     g_win = NULL;
@@ -209,7 +315,8 @@ mrb_granada_host_init(mrb_state *mrb, struct RClass *mod)
 {
   struct RClass *host = mrb_define_module_under(mrb, mod, "Host");
   mrb_define_module_function(mrb, host, "available?", host_available, MRB_ARGS_NONE());
-  mrb_define_module_function(mrb, host, "run", host_run, MRB_ARGS_ARG(1, 3) | MRB_ARGS_BLOCK());
+  mrb_define_module_function(mrb, host, "run", host_run, MRB_ARGS_ARG(1, 5) | MRB_ARGS_BLOCK());
   mrb_define_module_function(mrb, host, "quit!", host_quit, MRB_ARGS_NONE());
   mrb_define_module_function(mrb, host, "size", host_size, MRB_ARGS_NONE());
+  mrb_define_module_function(mrb, host, "image", host_image, MRB_ARGS_REQ(1));
 }
