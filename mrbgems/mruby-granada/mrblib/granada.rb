@@ -236,6 +236,20 @@ module Granada
     end
   end
 
+  # Native heap (nk_context + font atlas). GC also frees it; the block form is
+  # the Ruby idiom so you never call #free by hand.
+  class Context
+    def self.open
+      ctx = new
+      return ctx unless block_given?
+      begin
+        yield ctx
+      ensure
+        ctx.free if ctx.alive?
+      end
+    end
+  end
+
   def self.app(title: "Granada", width: 800, height: 600, vsync: true, font: nil, font_size: 13, &block)
     raise ArgumentError, "Granada.app requires a block" unless block
     unless Host.available?

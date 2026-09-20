@@ -26,9 +26,9 @@ if Granada::Host.available?
 else
   stone = Granada::Native.rgb(220, 20, 60)
   puts "gemstone: ##{stone.hex}  #{stone.inspect}"
-  ctx = Granada::Context.new
-  puts "context:  #{ctx.alive?}"
-  ctx.free
-  puts "freed:    #{!ctx.alive?}"
+  Granada::Context.open do |ctx|
+    puts "context:  #{ctx.alive?}"
+  end
+  puts "(Context.open frees the native heap for you)"
   puts "(rebuild with glfw3 + glew to open a window)"
 end

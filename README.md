@@ -47,6 +47,7 @@ Clona mruby 4.0.0, compila o gem `mruby-granada` (incluindo a implementação do
 ```sh
 make hello      # janela GLFW, ou smoke headless se o host não compilou
 make kitchen    # examples/kitchen_sink.rb
+make studio     # UI completa de teste (mixer / library / canvas)
 make test       # testes mruby do gem (não abrem janela)
 make inventory  # regenera docs/api-map.md a partir de nuklear.h
 ```

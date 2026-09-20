@@ -2,6 +2,24 @@
 
 Este guia é o ponto de partida quando formos desenhar telas de verdade (menus, HUD, editores). Granada é Nuklear: **immediate mode**. Se você vier de Qt, HTML ou de um scene graph, a regra muda.
 
+## Memória — você quase nunca dá `free`
+
+`Granada.app` **não** pede `#free`. O host C cria o contexto, o loop roda, e no `Esc`/Quit ele chama `nk_glfw3_shutdown` sozinho (fonte, texturas, janela).
+
+`Vec2`, `Rect`, `Color`, `Image` são objetos Ruby: o GC chama o destructor C. Não existe `color.free`.
+
+O único objeto com heap nativo grande é `Granada::Context` (o `nk_context` + atlas de fonte). O GC **também** libera isso no destructor, mas o mruby não garante *quando*. Por isso os testes headless às vezes chamam `ctx.free` na hora — igual `File#close` em vez de esperar o GC.
+
+O jeito Ruby:
+
+```ruby
+Granada::Context.open do |ctx|
+  ctx.begin("demo", Granada::Rect.new(0, 0, 400, 300)) { label "hi" }
+end  # ensure → ctx.free
+```
+
+Resumo: **app = não libera nada. Script headless = `Context.open`. `#free` existe porque por baixo ainda é C, não porque a DSL queira que você pense em C.**
+
 ## O loop
 
 ```

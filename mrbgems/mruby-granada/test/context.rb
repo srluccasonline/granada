@@ -10,6 +10,15 @@ assert('Granada::Context init/clear/free') do
   assert_false(ctx.alive?)
 end
 
+assert('Granada::Context.open yields and frees') do
+  held = nil
+  Granada::Context.open do |ctx|
+    held = ctx
+    assert_true(ctx.alive?)
+  end
+  assert_false(held.alive?)
+end
+
 assert('Granada::Native.init_default') do
   ctx = Granada::Native.init_default
   assert_kind_of(Granada::Context, ctx)
