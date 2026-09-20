@@ -1,0 +1,34 @@
+# C symbols already exposed on Granada::Native / Granada types.
+# tools/inventory_nuklear.rb marks these as `native`.
+nk_init_default
+nk_clear
+nk_free
+nk_style_default
+nk_vec2
+nk_vec2i
+nk_rect
+nk_recti
+nk_recta
+nk_get_null_rect
+nk_rect_pos
+nk_rect_size
+nk_rgb
+nk_rgba
+nk_rgb_f
+nk_rgba_f
+nk_rgb_hex
+nk_rgba_hex
+nk_hsv
+nk_hsva
+nk_hsv_f
+nk_hsva_f
+nk_rgb_cf
+nk_rgba_cf
+nk_color_cf
+nk_color_u32
+nk_color_hex_rgb
+nk_color_hex_rgba
+nk_rgb_factor
+nk_rgba_u32
+nk_image_id
+nk_image_is_subimage

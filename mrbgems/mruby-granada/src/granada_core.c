@@ -10,13 +10,7 @@
  *   - no mrb_alloca (renamed mrb_temp_alloc in 4.0)
  *   - presym is always on
  */
-#include "granada_config.h"
-#include "nuklear.h"
-
-#include <mruby.h>
-#include <mruby/class.h>
-#include <mruby/string.h>
-#include <mruby/variable.h>
+#include "granada.h"
 
 void
 mrb_mruby_granada_gem_init(mrb_state *mrb)
@@ -26,12 +20,15 @@ mrb_mruby_granada_gem_init(mrb_state *mrb)
 
   mod = mrb_define_module(mrb, "Granada");
   native = mrb_define_module_under(mrb, mod, "Native");
-  (void)native;
 
   mrb_define_const(mrb, mod, "VERSION",
                    mrb_str_new_lit(mrb, GRANADA_VERSION));
   mrb_define_const(mrb, mod, "NUKLEAR_VERSION",
                    mrb_str_new_lit(mrb, GRANADA_NUKLEAR_VERSION));
+
+  mrb_granada_flags_init(mrb, mod);
+  mrb_granada_types_init(mrb, mod, native);
+  mrb_granada_context_init(mrb, mod, native);
 }
 
 void

@@ -12,8 +12,18 @@ require "fileutils"
 ROOT = File.expand_path("..", __dir__)
 HEADER = File.join(ROOT, "vendor/nuklear/nuklear.h")
 OUT = File.join(ROOT, "docs/api-map.md")
+BOUND = File.join(ROOT, "tools/native-bound.txt")
 
 abort "missing #{HEADER}" unless File.file?(HEADER)
+
+bound = {}
+if File.file?(BOUND)
+  File.foreach(BOUND) do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?("#")
+    bound[line] = "native"
+  end
+end
 
 SKIP_REASON = {
   vararg: "Ruby interpolates strings; not bound (`...` / va_list)",
@@ -61,13 +71,18 @@ File.foreach(HEADER) do |line|
     args = m[3].strip
     args = args.sub(/\s*NK_PRINTF_\w+\s*\([^)]*\)\s*\z/, "").strip
     kind = classify(name, args)
+    status = if kind == :bind
+               bound[name] || "unbound"
+             else
+               "skip"
+             end
     sections[section][:functions] << {
       ret: ret,
       name: name,
       args: args,
       ruby: ruby_name(name),
       kind: kind,
-      status: kind == :bind ? "unbound" : "skip",
+      status: status,
     }
     next
   end

@@ -13,7 +13,7 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 | Seção | Funções | unbound | native | dsl | skip |
 |---|---:|---:|---:|---:|---:|
 | Api | 0 | 0 | 0 | 0 | 0 |
-| Context | 7 | 7 | 0 | 0 | 0 |
+| Context | 7 | 4 | 3 | 0 | 0 |
 | Input | 30 | 30 | 0 | 0 | 0 |
 | Drawing | 25 | 25 | 0 | 0 | 0 |
 | Window | 34 | 34 | 0 | 0 | 0 |
@@ -41,10 +41,10 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 | Contextual | 9 | 9 | 0 | 0 | 0 |
 | Tooltip | 12 | 8 | 0 | 0 | 4 |
 | Menu | 18 | 18 | 0 | 0 | 0 |
-| Style | 21 | 21 | 0 | 0 | 0 |
-| Color | 50 | 50 | 0 | 0 | 0 |
-| Image | 16 | 16 | 0 | 0 | 0 |
-| Math | 14 | 14 | 0 | 0 | 0 |
+| Style | 21 | 20 | 1 | 0 | 0 |
+| Color | 50 | 32 | 18 | 0 | 0 |
+| Image | 16 | 14 | 2 | 0 | 0 |
+| Math | 14 | 6 | 8 | 0 | 0 |
 | String | 35 | 35 | 0 | 0 | 0 |
 | Utf-8 | 4 | 4 | 0 | 0 | 0 |
 | Font | 14 | 14 | 0 | 0 | 0 |
@@ -64,12 +64,12 @@ Enums: `nk_heading`, `nk_button_behavior`, `nk_link_underline`, `nk_modify`, `nk
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_init_default` | `init_default` | `nk_bool` |
+| `native` | `nk_init_default` | `init_default` | `nk_bool` |
 | `unbound` | `nk_init_fixed` | `init_fixed` | `nk_bool` |
 | `unbound` | `nk_init` | `init` | `nk_bool` |
 | `unbound` | `nk_init_custom` | `init_custom` | `nk_bool` |
-| `unbound` | `nk_clear` | `clear` | `void` |
-| `unbound` | `nk_free` | `free` | `void` |
+| `native` | `nk_clear` | `clear` | `void` |
+| `native` | `nk_free` | `free` | `void` |
 | `unbound` | `nk_set_user_data` | `set_user_data` | `void` |
 
 ## Input
@@ -564,7 +564,7 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_style_default` | `style_default` | `void` |
+| `native` | `nk_style_default` | `style_default` | `void` |
 | `unbound` | `nk_style_from_table` | `style_from_table` | `void` |
 | `unbound` | `nk_style_load_cursor` | `style_load_cursor` | `void` |
 | `unbound` | `nk_style_load_all_cursors` | `style_load_all_cursors` | `void` |
@@ -590,44 +590,44 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_rgb` | `rgb` | `struct nk_color` |
+| `native` | `nk_rgb` | `rgb` | `struct nk_color` |
 | `unbound` | `nk_rgb_iv` | `rgb_iv` | `struct nk_color` |
 | `unbound` | `nk_rgb_bv` | `rgb_bv` | `struct nk_color` |
-| `unbound` | `nk_rgb_f` | `rgb_f` | `struct nk_color` |
+| `native` | `nk_rgb_f` | `rgb_f` | `struct nk_color` |
 | `unbound` | `nk_rgb_fv` | `rgb_fv` | `struct nk_color` |
-| `unbound` | `nk_rgb_cf` | `rgb_cf` | `struct nk_color` |
-| `unbound` | `nk_rgb_hex` | `rgb_hex` | `struct nk_color` |
-| `unbound` | `nk_rgb_factor` | `rgb_factor` | `struct nk_color` |
-| `unbound` | `nk_rgba` | `rgba` | `struct nk_color` |
-| `unbound` | `nk_rgba_u32` | `rgba_u32` | `struct nk_color` |
+| `native` | `nk_rgb_cf` | `rgb_cf` | `struct nk_color` |
+| `native` | `nk_rgb_hex` | `rgb_hex` | `struct nk_color` |
+| `native` | `nk_rgb_factor` | `rgb_factor` | `struct nk_color` |
+| `native` | `nk_rgba` | `rgba` | `struct nk_color` |
+| `native` | `nk_rgba_u32` | `rgba_u32` | `struct nk_color` |
 | `unbound` | `nk_rgba_iv` | `rgba_iv` | `struct nk_color` |
 | `unbound` | `nk_rgba_bv` | `rgba_bv` | `struct nk_color` |
-| `unbound` | `nk_rgba_f` | `rgba_f` | `struct nk_color` |
+| `native` | `nk_rgba_f` | `rgba_f` | `struct nk_color` |
 | `unbound` | `nk_rgba_fv` | `rgba_fv` | `struct nk_color` |
-| `unbound` | `nk_rgba_cf` | `rgba_cf` | `struct nk_color` |
-| `unbound` | `nk_rgba_hex` | `rgba_hex` | `struct nk_color` |
+| `native` | `nk_rgba_cf` | `rgba_cf` | `struct nk_color` |
+| `native` | `nk_rgba_hex` | `rgba_hex` | `struct nk_color` |
 | `unbound` | `nk_hsva_colorf` | `hsva_colorf` | `struct nk_colorf` |
 | `unbound` | `nk_hsva_colorfv` | `hsva_colorfv` | `struct nk_colorf` |
 | `unbound` | `nk_colorf_hsva_f` | `colorf_hsva_f` | `void` |
 | `unbound` | `nk_colorf_hsva_fv` | `colorf_hsva_fv` | `void` |
-| `unbound` | `nk_hsv` | `hsv` | `struct nk_color` |
+| `native` | `nk_hsv` | `hsv` | `struct nk_color` |
 | `unbound` | `nk_hsv_iv` | `hsv_iv` | `struct nk_color` |
 | `unbound` | `nk_hsv_bv` | `hsv_bv` | `struct nk_color` |
-| `unbound` | `nk_hsv_f` | `hsv_f` | `struct nk_color` |
+| `native` | `nk_hsv_f` | `hsv_f` | `struct nk_color` |
 | `unbound` | `nk_hsv_fv` | `hsv_fv` | `struct nk_color` |
-| `unbound` | `nk_hsva` | `hsva` | `struct nk_color` |
+| `native` | `nk_hsva` | `hsva` | `struct nk_color` |
 | `unbound` | `nk_hsva_iv` | `hsva_iv` | `struct nk_color` |
 | `unbound` | `nk_hsva_bv` | `hsva_bv` | `struct nk_color` |
-| `unbound` | `nk_hsva_f` | `hsva_f` | `struct nk_color` |
+| `native` | `nk_hsva_f` | `hsva_f` | `struct nk_color` |
 | `unbound` | `nk_hsva_fv` | `hsva_fv` | `struct nk_color` |
 | `unbound` | `nk_color_f` | `color_f` | `void` |
 | `unbound` | `nk_color_fv` | `color_fv` | `void` |
-| `unbound` | `nk_color_cf` | `color_cf` | `struct nk_colorf` |
+| `native` | `nk_color_cf` | `color_cf` | `struct nk_colorf` |
 | `unbound` | `nk_color_d` | `color_d` | `void` |
 | `unbound` | `nk_color_dv` | `color_dv` | `void` |
-| `unbound` | `nk_color_u32` | `color_u32` | `nk_uint` |
-| `unbound` | `nk_color_hex_rgba` | `color_hex_rgba` | `void` |
-| `unbound` | `nk_color_hex_rgb` | `color_hex_rgb` | `void` |
+| `native` | `nk_color_u32` | `color_u32` | `nk_uint` |
+| `native` | `nk_color_hex_rgba` | `color_hex_rgba` | `void` |
+| `native` | `nk_color_hex_rgb` | `color_hex_rgb` | `void` |
 | `unbound` | `nk_color_hsv_i` | `color_hsv_i` | `void` |
 | `unbound` | `nk_color_hsv_b` | `color_hsv_b` | `void` |
 | `unbound` | `nk_color_hsv_iv` | `color_hsv_iv` | `void` |
@@ -649,8 +649,8 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 | `unbound` | `nk_handle_id` | `handle_id` | `nk_handle` |
 | `unbound` | `nk_image_handle` | `image_handle` | `struct nk_image` |
 | `unbound` | `nk_image_ptr` | `image_ptr` | `struct nk_image` |
-| `unbound` | `nk_image_id` | `image_id` | `struct nk_image` |
-| `unbound` | `nk_image_is_subimage` | `image_is_subimage` | `nk_bool` |
+| `native` | `nk_image_id` | `image_id` | `struct nk_image` |
+| `native` | `nk_image_is_subimage` | `image_is_subimage` | `nk_bool` |
 | `unbound` | `nk_subimage_ptr` | `subimage_ptr` | `struct nk_image` |
 | `unbound` | `nk_subimage_id` | `subimage_id` | `struct nk_image` |
 | `unbound` | `nk_subimage_handle` | `subimage_handle` | `struct nk_image` |
@@ -668,18 +668,18 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 |---|---|---|---|
 | `unbound` | `nk_murmur_hash` | `murmur_hash` | `nk_hash` |
 | `unbound` | `nk_triangle_from_direction` | `triangle_from_direction` | `void` |
-| `unbound` | `nk_vec2` | `vec2` | `struct nk_vec2` |
-| `unbound` | `nk_vec2i` | `vec2i` | `struct nk_vec2` |
+| `native` | `nk_vec2` | `vec2` | `struct nk_vec2` |
+| `native` | `nk_vec2i` | `vec2i` | `struct nk_vec2` |
 | `unbound` | `nk_vec2v` | `vec2v` | `struct nk_vec2` |
 | `unbound` | `nk_vec2iv` | `vec2iv` | `struct nk_vec2` |
-| `unbound` | `nk_get_null_rect` | `get_null_rect` | `struct nk_rect` |
-| `unbound` | `nk_rect` | `rect` | `struct nk_rect` |
-| `unbound` | `nk_recti` | `recti` | `struct nk_rect` |
-| `unbound` | `nk_recta` | `recta` | `struct nk_rect` |
+| `native` | `nk_get_null_rect` | `get_null_rect` | `struct nk_rect` |
+| `native` | `nk_rect` | `rect` | `struct nk_rect` |
+| `native` | `nk_recti` | `recti` | `struct nk_rect` |
+| `native` | `nk_recta` | `recta` | `struct nk_rect` |
 | `unbound` | `nk_rectv` | `rectv` | `struct nk_rect` |
 | `unbound` | `nk_rectiv` | `rectiv` | `struct nk_rect` |
-| `unbound` | `nk_rect_pos` | `rect_pos` | `struct nk_vec2` |
-| `unbound` | `nk_rect_size` | `rect_size` | `struct nk_vec2` |
+| `native` | `nk_rect_pos` | `rect_pos` | `struct nk_vec2` |
+| `native` | `nk_rect_size` | `rect_size` | `struct nk_vec2` |
 
 ## String
 

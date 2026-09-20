@@ -19,9 +19,9 @@ Nuklear **v4.13.3**. mruby **4.0.0**. Autor: Luccas Brandão Bezerra. Apache-2.0
 
 ## Fase C — Native (1:1)
 
-- [ ] Types: Rect, Vec2, Color, ColorF, Image, NineSlice, Handle
-- [ ] Flags / enums (WINDOW_*, TEXT_*, KEY_*, BUTTON_*, …)
-- [ ] Context (init / clear / free)
+- [x] Types: Rect, Vec2, Color, ColorF, Image (NineSlice / Handle depois)
+- [x] Flags / enums (WINDOW_*, TEXT_*, KEY_*, MOUSE_*, …)
+- [x] Context (init / clear / free)
 - [ ] Input
 - [ ] Drawing iterators (`nk__begin`, `nk_convert`, …)
 - [ ] Window (`nk_begin` / `nk_end` + queries; `MRB_ENSURE`)
