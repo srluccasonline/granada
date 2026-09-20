@@ -1,14 +1,34 @@
-# Sanity check: the gem is linked into mruby.
-# A windowed demo lands with the GLFW host (Phase D).
+# Windowed hello. Requires a Granada build with GLFW + GLEW.
+# Headless smoke path if the host was not compiled in.
 #
 #   make hello
 
 puts "Granada #{Granada::VERSION} (Nuklear #{Granada::NUKLEAR_VERSION})"
+puts "host:    #{Granada::Host.available? ? 'GLFW+GL3' : 'not built'}"
 
-stone = Granada::Native.rgb(220, 20, 60)
-puts "gemstone: ##{stone.hex}  #{stone.inspect}"
+if Granada::Host.available?
+  @on = true
+  @vol = 0.6
 
-ctx = Granada::Context.new
-puts "context:  #{ctx.alive?}"
-ctx.free
-puts "freed:    #{!ctx.alive?}"
+  Granada.app title: "Granada", width: 640, height: 420 do
+    window "demo", fill: true, border: true do
+      row height: 32, cols: 2 do
+        label "Granada", align: :center
+        button("Quit") { quit }
+      end
+      row height: 28, cols: 1 do
+        @on = checkbox("Enabled", @on)
+        @vol = slider(@vol, min: 0.0, max: 1.0, step: 0.01)
+        label "volume #{@vol}"
+      end
+    end
+  end
+else
+  stone = Granada::Native.rgb(220, 20, 60)
+  puts "gemstone: ##{stone.hex}  #{stone.inspect}"
+  ctx = Granada::Context.new
+  puts "context:  #{ctx.alive?}"
+  ctx.free
+  puts "freed:    #{!ctx.alive?}"
+  puts "(rebuild with glfw3 + glew to open a window)"
+end

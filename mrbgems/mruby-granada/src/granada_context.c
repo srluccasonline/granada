@@ -1,15 +1,20 @@
 /*
  * Granada::Context — wraps struct nk_context with nk_init_default / nk_clear / nk_free.
+ * Host-owned contexts (GLFW) set nk_ext and owned=0 so shutdown stays in the host.
  */
 #include "granada.h"
+
+#include <string.h>
 
 static void
 context_free(mrb_state *mrb, void *ptr)
 {
   granada_ctx *g = (granada_ctx *)ptr;
   if (g) {
-    nk_free(&g->nk);
-    nk_font_atlas_clear(&g->atlas);
+    if (g->owned) {
+      nk_free(&g->nk);
+      nk_font_atlas_clear(&g->atlas);
+    }
     mrb_free(mrb, g->floats);
     mrb_free(mrb, g);
   }
@@ -30,7 +35,71 @@ granada_ctx_get(mrb_state *mrb, mrb_value obj)
 struct nk_context *
 granada_context_ptr(mrb_state *mrb, mrb_value obj)
 {
-  return &granada_ctx_get(mrb, obj)->nk;
+  granada_ctx *g = granada_ctx_get(mrb, obj);
+  return g->nk_ext ? g->nk_ext : &g->nk;
+}
+
+mrb_value
+granada_context_wrap_external(mrb_state *mrb, struct nk_context *nk)
+{
+  struct RClass *mod;
+  struct RClass *cls;
+  granada_ctx *g;
+
+  if (!nk) {
+    mrb_raise(mrb, E_RUNTIME_ERROR, "cannot wrap a NULL nk_context");
+  }
+  mod = mrb_module_get(mrb, "Granada");
+  cls = mrb_class_get_under(mrb, mod, "Context");
+  g = (granada_ctx *)mrb_malloc(mrb, sizeof(*g));
+  memset(g, 0, sizeof(*g));
+  g->nk_ext = nk;
+  g->owned = 0;
+  return mrb_obj_value(mrb_data_object_alloc(mrb, cls, g, &granada_context_type));
+}
+
+mrb_value
+granada_open_block(mrb_state *mrb, struct nk_context *ctx, nk_bool open,
+                   void (*endfn)(struct nk_context *), mrb_value blk)
+{
+  if (mrb_nil_p(blk)) {
+    return mrb_bool_value(open);
+  }
+  if (!open) {
+    return mrb_false_value();
+  }
+  {
+    mrb_value result;
+    mrb_value block = blk;
+    MRB_ENSURE(mrb, result, granada_yield, &block) {
+      endfn(ctx);
+    }
+    return result;
+  }
+}
+
+nk_plugin_filter
+granada_filter_from(mrb_state *mrb, mrb_value v)
+{
+  const char *name;
+
+  if (mrb_nil_p(v)) {
+    return nk_filter_default;
+  }
+  if (mrb_symbol_p(v)) {
+    name = mrb_sym_name(mrb, mrb_symbol(v));
+  } else if (mrb_string_p(v)) {
+    name = mrb_string_cstr(mrb, v);
+  } else {
+    return nk_filter_default;
+  }
+  if (strcmp(name, "ascii") == 0) return nk_filter_ascii;
+  if (strcmp(name, "float") == 0) return nk_filter_float;
+  if (strcmp(name, "decimal") == 0) return nk_filter_decimal;
+  if (strcmp(name, "hex") == 0) return nk_filter_hex;
+  if (strcmp(name, "oct") == 0) return nk_filter_oct;
+  if (strcmp(name, "binary") == 0) return nk_filter_binary;
+  return nk_filter_default;
 }
 
 float *
@@ -76,6 +145,15 @@ granada_define_native_fwd(mrb_state *mrb, struct RClass *native, const char *nam
   mrb_define_module_function(mrb, native, name, granada_native_fwd, spec);
 }
 
+void
+granada_define_native_fwds(mrb_state *mrb, struct RClass *native, const char **names)
+{
+  const char **p;
+  for (p = names; *p; p++) {
+    granada_define_native_fwd(mrb, native, *p, MRB_ARGS_ANY());
+  }
+}
+
 static mrb_value
 context_initialize(mrb_state *mrb, mrb_value self)
 {
@@ -88,9 +166,8 @@ context_initialize(mrb_state *mrb, mrb_value self)
   }
 
   g = (granada_ctx *)mrb_malloc(mrb, sizeof(*g));
-  g->floats = NULL;
-  g->floats_cap = 0;
-  g->font = NULL;
+  memset(g, 0, sizeof(*g));
+  g->owned = 1;
   {
     int tw = 0, th = 0;
     nk_font_atlas_init_default(&g->atlas);
@@ -184,4 +261,7 @@ mrb_granada_context_init(mrb_state *mrb, struct RClass *mod, struct RClass *nati
   mrb_granada_input_init(mrb, ctx, native);
   mrb_granada_window_init(mrb, ctx, native);
   mrb_granada_layout_init(mrb, ctx, native);
+  mrb_granada_widgets_init(mrb, ctx, native);
+  mrb_granada_containers_init(mrb, ctx, native);
+  mrb_granada_style_init(mrb, ctx, native);
 }

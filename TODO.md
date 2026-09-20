@@ -20,55 +20,55 @@ Nuklear **v4.13.3**. mruby **4.0.0**. Autor: Luccas Brandão Bezerra. Apache-2.0
 ## Fase C — Native (1:1)
 
 - [x] Types: Rect, Vec2, Color, ColorF, Image (NineSlice / Handle depois)
-- [x] Flags / enums (WINDOW_*, TEXT_*, KEY_*, MOUSE_*, …)
-- [x] Context (init / clear / free)
+- [x] Flags / enums (WINDOW_*, TEXT_*, KEY_*, MOUSE_*, EDIT_*, COLOR_*, …)
+- [x] Context (init / clear / free; wrap externo para o host)
 - [x] Input
-- [ ] Drawing iterators (`nk__begin`, `nk_convert`, …)
+- [ ] Drawing iterators (`nk__begin`, `nk_convert`, …) — o host GLFW usa o backend oficial, não precisa no Ruby
 - [x] Window (`nk_begin` / `nk_end` + queries; `MRB_ENSURE`)
 - [x] Layout
-- [ ] Groups
-- [ ] Tree / list_view
-- [ ] Widget queries / spacing / disable
-- [ ] Text / label (sem `*f` vararg)
-- [ ] Links
-- [ ] Button
-- [ ] Checkbox / radio / option
-- [ ] Selectable
-- [ ] Slider / knob / progress
-- [ ] Color picker
-- [ ] Property
-- [ ] Edit (buffer gerenciado em Ruby)
-- [ ] Chart
-- [ ] Popup
-- [ ] Combo
-- [ ] Contextual
-- [ ] Tooltip (sem `*f` vararg)
-- [ ] Menu / menubar
-- [ ] Style push/pop
-- [ ] Color helpers
-- [ ] Image / nine-slice
-- [ ] Font atlas (o que o host precisa)
-- [ ] Math / rect / vec helpers
+- [x] Groups
+- [x] Tree (hashed + state_push; list_view depois)
+- [x] Widget queries / spacing / disable
+- [x] Text / label (sem `*f` vararg)
+- [x] Links (`link_label`)
+- [x] Button
+- [x] Checkbox / radio / option
+- [x] Selectable
+- [x] Slider / knob / progress
+- [x] Color picker
+- [x] Property
+- [x] Edit (buffer Ruby, filtros por símbolo)
+- [x] Chart (`chart_begin` / `plot`)
+- [x] Popup
+- [x] Combo
+- [x] Contextual
+- [x] Tooltip (sem `*f` vararg)
+- [x] Menu / menubar
+- [x] Style (`style_from_table`, cursor; push/pop de ponteiro C fica unbound)
+- [x] Color helpers (já nos types)
+- [ ] Image / nine-slice extras (já tem `Image` + `nk_image`)
+- [ ] Font atlas (o host GLFW faz o stash; API Ruby depois)
+- [ ] Math / rect / vec helpers extras
 - [ ] Buffer / string / utf-8 (só o que Native precisa; resto `skip` no mapa)
 
 ## Fase D — Host GLFW + OpenGL 3
 
-- [ ] `src/host_glfw.c` separado do core
-- [ ] `Granada.app` loop (poll → frame → yield → render)
-- [ ] Font stash
-- [ ] Esc / Cmd+Q / Ctrl+Q
-- [ ] `examples/hello.rb` abre janela
+- [x] `src/granada_host.c` separado do core (opcional via pkg-config)
+- [x] `Granada.app` loop (poll → frame → yield → render)
+- [x] Font stash (default atlas no `nk_glfw3_font_stash_*`)
+- [x] Esc / Cmd+Q / Ctrl+Q
+- [x] `examples/hello.rb` abre janela quando o host existe
 
 ## Fase E — DSL
 
-- [ ] `Granada::UI` com `instance_eval`
-- [ ] `window` / `row` / widgets com kwargs
-- [ ] Estado in/out (checkbox, slider, property devolvem valor)
-- [ ] `docs/dsl.md` completo
-- [ ] `examples/kitchen_sink.rb`
+- [x] `Granada::UI` com `instance_eval`
+- [x] `window` / `row` / widgets com kwargs
+- [x] Estado in/out (checkbox, slider, property devolvem valor)
+- [x] `docs/dsl.md` completo
+- [x] `examples/kitchen_sink.rb`
 
 ## Fase F — polish
 
-- [ ] `docs/architecture.md` / `building-uis.md` / `mruby4.md` alinhados ao código
-- [x] CI GitHub Actions (macOS + Ubuntu) — workflow adicionado; ainda não validado no GitHub
-- [ ] README com exemplo rodando
+- [x] `docs/architecture.md` / `building-uis.md` / `mruby4.md` alinhados ao código
+- [x] CI GitHub Actions (macOS + Ubuntu) — instala glfw/glew
+- [x] README com exemplo rodando

@@ -18,30 +18,30 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 | Drawing | 25 | 25 | 0 | 0 | 0 |
 | Window | 34 | 4 | 30 | 0 | 0 |
 | Layout | 24 | 0 | 24 | 0 | 0 |
-| Group | 8 | 8 | 0 | 0 | 0 |
-| Tree | 9 | 9 | 0 | 0 | 0 |
+| Group | 8 | 3 | 5 | 0 | 0 |
+| Tree | 9 | 4 | 5 | 0 | 0 |
 | List View | 2 | 2 | 0 | 0 | 0 |
-| Widget | 12 | 11 | 1 | 0 | 0 |
-| Text | 25 | 17 | 0 | 0 | 8 |
-| Link | 12 | 12 | 0 | 0 | 0 |
-| Button | 20 | 20 | 0 | 0 | 0 |
-| Checkbox | 11 | 11 | 0 | 0 | 0 |
-| Radio Button | 8 | 8 | 0 | 0 | 0 |
-| Selectable | 12 | 12 | 0 | 0 | 0 |
-| Slider | 4 | 4 | 0 | 0 | 0 |
-| Knob | 2 | 2 | 0 | 0 | 0 |
-| Progressbar | 2 | 2 | 0 | 0 | 0 |
-| Color Picker | 2 | 2 | 0 | 0 | 0 |
-| Properties | 6 | 6 | 0 | 0 | 0 |
-| Text Edit | 5 | 5 | 0 | 0 | 0 |
-| Chart | 9 | 9 | 0 | 0 | 0 |
-| Popup | 5 | 5 | 0 | 0 | 0 |
-| Combobox | 8 | 8 | 0 | 0 | 0 |
-| Abstract Combobox | 17 | 17 | 0 | 0 | 0 |
-| Contextual | 9 | 9 | 0 | 0 | 0 |
-| Tooltip | 12 | 8 | 0 | 0 | 4 |
-| Menu | 18 | 18 | 0 | 0 | 0 |
-| Style | 21 | 20 | 1 | 0 | 0 |
+| Widget | 12 | 1 | 11 | 0 | 0 |
+| Text | 25 | 2 | 15 | 0 | 8 |
+| Link | 12 | 11 | 1 | 0 | 0 |
+| Button | 20 | 10 | 10 | 0 | 0 |
+| Checkbox | 11 | 8 | 3 | 0 | 0 |
+| Radio Button | 8 | 6 | 2 | 0 | 0 |
+| Selectable | 12 | 10 | 2 | 0 | 0 |
+| Slider | 4 | 0 | 4 | 0 | 0 |
+| Knob | 2 | 1 | 1 | 0 | 0 |
+| Progressbar | 2 | 0 | 2 | 0 | 0 |
+| Color Picker | 2 | 0 | 2 | 0 | 0 |
+| Properties | 6 | 1 | 5 | 0 | 0 |
+| Text Edit | 5 | 2 | 3 | 0 | 0 |
+| Chart | 9 | 5 | 4 | 0 | 0 |
+| Popup | 5 | 2 | 3 | 0 | 0 |
+| Combobox | 8 | 7 | 1 | 0 | 0 |
+| Abstract Combobox | 17 | 13 | 4 | 0 | 0 |
+| Contextual | 9 | 5 | 4 | 0 | 0 |
+| Tooltip | 12 | 5 | 3 | 0 | 4 |
+| Menu | 18 | 12 | 6 | 0 | 0 |
+| Style | 21 | 15 | 6 | 0 | 0 |
 | Color | 50 | 32 | 18 | 0 | 0 |
 | Image | 16 | 14 | 2 | 0 | 0 |
 | Math | 14 | 6 | 8 | 0 | 0 |
@@ -49,7 +49,7 @@ Status: `unbound` (ainda não ligado), `native` (Granada::Native), `dsl` (també
 | Utf-8 | 4 | 4 | 0 | 0 | 0 |
 | Font | 14 | 14 | 0 | 0 | 0 |
 | Memory Buffer | 10 | 10 | 0 | 0 | 0 |
-| Text Editor | 19 | 19 | 0 | 0 | 0 |
+| Text Editor | 19 | 12 | 7 | 0 | 0 |
 | Draw List | 27 | 27 | 0 | 0 | 0 |
 | Gui | 4 | 4 | 0 | 0 | 0 |
 
@@ -221,25 +221,25 @@ Enums: `nk_widget_align`, `nk_widget_alignment`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_group_begin` | `group_begin` | `nk_bool` |
-| `unbound` | `nk_group_begin_titled` | `group_begin_titled` | `nk_bool` |
-| `unbound` | `nk_group_end` | `group_end` | `void` |
+| `native` | `nk_group_begin` | `group_begin` | `nk_bool` |
+| `native` | `nk_group_begin_titled` | `group_begin_titled` | `nk_bool` |
+| `native` | `nk_group_end` | `group_end` | `void` |
 | `unbound` | `nk_group_scrolled_offset_begin` | `group_scrolled_offset_begin` | `nk_bool` |
 | `unbound` | `nk_group_scrolled_begin` | `group_scrolled_begin` | `nk_bool` |
 | `unbound` | `nk_group_scrolled_end` | `group_scrolled_end` | `void` |
-| `unbound` | `nk_group_get_scroll` | `group_get_scroll` | `void` |
-| `unbound` | `nk_group_set_scroll` | `group_set_scroll` | `void` |
+| `native` | `nk_group_get_scroll` | `group_get_scroll` | `void` |
+| `native` | `nk_group_set_scroll` | `group_set_scroll` | `void` |
 
 ## Tree
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_tree_push_hashed` | `tree_push_hashed` | `nk_bool` |
-| `unbound` | `nk_tree_image_push_hashed` | `tree_image_push_hashed` | `nk_bool` |
-| `unbound` | `nk_tree_pop` | `tree_pop` | `void` |
-| `unbound` | `nk_tree_state_push` | `tree_state_push` | `nk_bool` |
+| `native` | `nk_tree_push_hashed` | `tree_push_hashed` | `nk_bool` |
+| `native` | `nk_tree_image_push_hashed` | `tree_image_push_hashed` | `nk_bool` |
+| `native` | `nk_tree_pop` | `tree_pop` | `void` |
+| `native` | `nk_tree_state_push` | `tree_state_push` | `nk_bool` |
 | `unbound` | `nk_tree_state_image_push` | `tree_state_image_push` | `nk_bool` |
-| `unbound` | `nk_tree_state_pop` | `tree_state_pop` | `void` |
+| `native` | `nk_tree_state_pop` | `tree_state_pop` | `void` |
 | `unbound` | `nk_tree_element_push_hashed` | `tree_element_push_hashed` | `nk_bool` |
 | `unbound` | `nk_tree_element_image_push_hashed` | `tree_element_image_push_hashed` | `nk_bool` |
 | `unbound` | `nk_tree_element_pop` | `tree_element_pop` | `void` |
@@ -260,17 +260,17 @@ Enums: `nk_widget_layout_states`, `nk_widget_states`
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
 | `unbound` | `nk_widget` | `widget` | `enum nk_widget_layout_states` |
-| `unbound` | `nk_widget_bounds` | `widget_bounds` | `struct nk_rect` |
-| `unbound` | `nk_widget_position` | `widget_position` | `struct nk_vec2` |
-| `unbound` | `nk_widget_size` | `widget_size` | `struct nk_vec2` |
-| `unbound` | `nk_widget_width` | `widget_width` | `float` |
-| `unbound` | `nk_widget_height` | `widget_height` | `float` |
-| `unbound` | `nk_widget_is_hovered` | `widget_is_hovered` | `nk_bool` |
-| `unbound` | `nk_widget_is_mouse_clicked` | `widget_is_mouse_clicked` | `nk_bool` |
-| `unbound` | `nk_widget_has_mouse_click_down` | `widget_has_mouse_click_down` | `nk_bool` |
+| `native` | `nk_widget_bounds` | `widget_bounds` | `struct nk_rect` |
+| `native` | `nk_widget_position` | `widget_position` | `struct nk_vec2` |
+| `native` | `nk_widget_size` | `widget_size` | `struct nk_vec2` |
+| `native` | `nk_widget_width` | `widget_width` | `float` |
+| `native` | `nk_widget_height` | `widget_height` | `float` |
+| `native` | `nk_widget_is_hovered` | `widget_is_hovered` | `nk_bool` |
+| `native` | `nk_widget_is_mouse_clicked` | `widget_is_mouse_clicked` | `nk_bool` |
+| `native` | `nk_widget_has_mouse_click_down` | `widget_has_mouse_click_down` | `nk_bool` |
 | `native` | `nk_spacing` | `spacing` | `void` |
-| `unbound` | `nk_widget_disable_begin` | `widget_disable_begin` | `void` |
-| `unbound` | `nk_widget_disable_end` | `widget_disable_end` | `void` |
+| `native` | `nk_widget_disable_begin` | `widget_disable_begin` | `void` |
+| `native` | `nk_widget_disable_end` | `widget_disable_end` | `void` |
 
 ## Text
 
@@ -278,16 +278,16 @@ Enums: `nk_text_align`, `nk_text_alignment`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_text` | `text` | `void` |
-| `unbound` | `nk_text_colored` | `text_colored` | `void` |
-| `unbound` | `nk_text_wrap` | `text_wrap` | `void` |
-| `unbound` | `nk_text_wrap_colored` | `text_wrap_colored` | `void` |
-| `unbound` | `nk_label` | `label` | `void` |
-| `unbound` | `nk_label_colored` | `label_colored` | `void` |
-| `unbound` | `nk_label_wrap` | `label_wrap` | `void` |
-| `unbound` | `nk_label_colored_wrap` | `label_colored_wrap` | `void` |
-| `unbound` | `nk_image` | `image` | `void` |
-| `unbound` | `nk_image_color` | `image_color` | `void` |
+| `native` | `nk_text` | `text` | `void` |
+| `native` | `nk_text_colored` | `text_colored` | `void` |
+| `native` | `nk_text_wrap` | `text_wrap` | `void` |
+| `native` | `nk_text_wrap_colored` | `text_wrap_colored` | `void` |
+| `native` | `nk_label` | `label` | `void` |
+| `native` | `nk_label_colored` | `label_colored` | `void` |
+| `native` | `nk_label_wrap` | `label_wrap` | `void` |
+| `native` | `nk_label_colored_wrap` | `label_colored_wrap` | `void` |
+| `native` | `nk_image` | `image` | `void` |
+| `native` | `nk_image_color` | `image_color` | `void` |
 | `skip` | `nk_labelf` | `labelf` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
 | `skip` | `nk_labelf_colored` | `labelf_colored` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
 | `skip` | `nk_labelf_wrap` | `labelf_wrap` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
@@ -296,20 +296,20 @@ Enums: `nk_text_align`, `nk_text_alignment`
 | `skip` | `nk_labelfv_colored` | `labelfv_colored` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
 | `skip` | `nk_labelfv_wrap` | `labelfv_wrap` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
 | `skip` | `nk_labelfv_colored_wrap` | `labelfv_colored_wrap` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
-| `unbound` | `nk_value_bool` | `value_bool` | `void` |
-| `unbound` | `nk_value_int` | `value_int` | `void` |
-| `unbound` | `nk_value_uint` | `value_uint` | `void` |
-| `unbound` | `nk_value_float` | `value_float` | `void` |
+| `native` | `nk_value_bool` | `value_bool` | `void` |
+| `native` | `nk_value_int` | `value_int` | `void` |
+| `native` | `nk_value_uint` | `value_uint` | `void` |
+| `native` | `nk_value_float` | `value_float` | `void` |
 | `unbound` | `nk_value_color_byte` | `value_color_byte` | `void` |
 | `unbound` | `nk_value_color_float` | `value_color_float` | `void` |
-| `unbound` | `nk_value_color_hex` | `value_color_hex` | `void` |
+| `native` | `nk_value_color_hex` | `value_color_hex` | `void` |
 
 ## Link
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
 | `unbound` | `nk_link_text` | `link_text` | `nk_bool` |
-| `unbound` | `nk_link_label` | `link_label` | `nk_bool` |
+| `native` | `nk_link_label` | `link_label` | `nk_bool` |
 | `unbound` | `nk_link_text_styled` | `link_text_styled` | `nk_bool` |
 | `unbound` | `nk_link_label_styled` | `link_label_styled` | `nk_bool` |
 | `unbound` | `nk_link_text_underline` | `link_text_underline` | `nk_bool` |
@@ -325,14 +325,14 @@ Enums: `nk_text_align`, `nk_text_alignment`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_button_text` | `button_text` | `nk_bool` |
-| `unbound` | `nk_button_label` | `button_label` | `nk_bool` |
-| `unbound` | `nk_button_color` | `button_color` | `nk_bool` |
-| `unbound` | `nk_button_symbol` | `button_symbol` | `nk_bool` |
-| `unbound` | `nk_button_image` | `button_image` | `nk_bool` |
-| `unbound` | `nk_button_symbol_label` | `button_symbol_label` | `nk_bool` |
+| `native` | `nk_button_text` | `button_text` | `nk_bool` |
+| `native` | `nk_button_label` | `button_label` | `nk_bool` |
+| `native` | `nk_button_color` | `button_color` | `nk_bool` |
+| `native` | `nk_button_symbol` | `button_symbol` | `nk_bool` |
+| `native` | `nk_button_image` | `button_image` | `nk_bool` |
+| `native` | `nk_button_symbol_label` | `button_symbol_label` | `nk_bool` |
 | `unbound` | `nk_button_symbol_text` | `button_symbol_text` | `nk_bool` |
-| `unbound` | `nk_button_image_label` | `button_image_label` | `nk_bool` |
+| `native` | `nk_button_image_label` | `button_image_label` | `nk_bool` |
 | `unbound` | `nk_button_image_text` | `button_image_text` | `nk_bool` |
 | `unbound` | `nk_button_text_styled` | `button_text_styled` | `nk_bool` |
 | `unbound` | `nk_button_label_styled` | `button_label_styled` | `nk_bool` |
@@ -342,35 +342,35 @@ Enums: `nk_text_align`, `nk_text_alignment`
 | `unbound` | `nk_button_symbol_label_styled` | `button_symbol_label_styled` | `nk_bool` |
 | `unbound` | `nk_button_image_label_styled` | `button_image_label_styled` | `nk_bool` |
 | `unbound` | `nk_button_image_text_styled` | `button_image_text_styled` | `nk_bool` |
-| `unbound` | `nk_button_set_behavior` | `button_set_behavior` | `void` |
-| `unbound` | `nk_button_push_behavior` | `button_push_behavior` | `nk_bool` |
-| `unbound` | `nk_button_pop_behavior` | `button_pop_behavior` | `nk_bool` |
+| `native` | `nk_button_set_behavior` | `button_set_behavior` | `void` |
+| `native` | `nk_button_push_behavior` | `button_push_behavior` | `nk_bool` |
+| `native` | `nk_button_pop_behavior` | `button_pop_behavior` | `nk_bool` |
 
 ## Checkbox
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_check_label` | `check_label` | `nk_bool` |
+| `native` | `nk_check_label` | `check_label` | `nk_bool` |
 | `unbound` | `nk_check_text` | `check_text` | `nk_bool` |
 | `unbound` | `nk_check_text_align` | `check_text_align` | `nk_bool` |
 | `unbound` | `nk_check_flags_label` | `check_flags_label` | `unsigned` |
 | `unbound` | `nk_check_flags_text` | `check_flags_text` | `unsigned` |
-| `unbound` | `nk_checkbox_label` | `checkbox_label` | `nk_bool` |
+| `native` | `nk_checkbox_label` | `checkbox_label` | `nk_bool` |
 | `unbound` | `nk_checkbox_label_align` | `checkbox_label_align` | `nk_bool` |
 | `unbound` | `nk_checkbox_text` | `checkbox_text` | `nk_bool` |
 | `unbound` | `nk_checkbox_text_align` | `checkbox_text_align` | `nk_bool` |
-| `unbound` | `nk_checkbox_flags_label` | `checkbox_flags_label` | `nk_bool` |
+| `native` | `nk_checkbox_flags_label` | `checkbox_flags_label` | `nk_bool` |
 | `unbound` | `nk_checkbox_flags_text` | `checkbox_flags_text` | `nk_bool` |
 
 ## Radio Button
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_radio_label` | `radio_label` | `nk_bool` |
+| `native` | `nk_radio_label` | `radio_label` | `nk_bool` |
 | `unbound` | `nk_radio_label_align` | `radio_label_align` | `nk_bool` |
 | `unbound` | `nk_radio_text` | `radio_text` | `nk_bool` |
 | `unbound` | `nk_radio_text_align` | `radio_text_align` | `nk_bool` |
-| `unbound` | `nk_option_label` | `option_label` | `nk_bool` |
+| `native` | `nk_option_label` | `option_label` | `nk_bool` |
 | `unbound` | `nk_option_label_align` | `option_label_align` | `nk_bool` |
 | `unbound` | `nk_option_text` | `option_text` | `nk_bool` |
 | `unbound` | `nk_option_text_align` | `option_text_align` | `nk_bool` |
@@ -379,13 +379,13 @@ Enums: `nk_text_align`, `nk_text_alignment`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_selectable_label` | `selectable_label` | `nk_bool` |
+| `native` | `nk_selectable_label` | `selectable_label` | `nk_bool` |
 | `unbound` | `nk_selectable_text` | `selectable_text` | `nk_bool` |
 | `unbound` | `nk_selectable_image_label` | `selectable_image_label` | `nk_bool` |
 | `unbound` | `nk_selectable_image_text` | `selectable_image_text` | `nk_bool` |
 | `unbound` | `nk_selectable_symbol_label` | `selectable_symbol_label` | `nk_bool` |
 | `unbound` | `nk_selectable_symbol_text` | `selectable_symbol_text` | `nk_bool` |
-| `unbound` | `nk_select_label` | `select_label` | `nk_bool` |
+| `native` | `nk_select_label` | `select_label` | `nk_bool` |
 | `unbound` | `nk_select_text` | `select_text` | `nk_bool` |
 | `unbound` | `nk_select_image_label` | `select_image_label` | `nk_bool` |
 | `unbound` | `nk_select_image_text` | `select_image_text` | `nk_bool` |
@@ -396,42 +396,42 @@ Enums: `nk_text_align`, `nk_text_alignment`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_slide_float` | `slide_float` | `float` |
-| `unbound` | `nk_slide_int` | `slide_int` | `int` |
-| `unbound` | `nk_slider_float` | `slider_float` | `nk_bool` |
-| `unbound` | `nk_slider_int` | `slider_int` | `nk_bool` |
+| `native` | `nk_slide_float` | `slide_float` | `float` |
+| `native` | `nk_slide_int` | `slide_int` | `int` |
+| `native` | `nk_slider_float` | `slider_float` | `nk_bool` |
+| `native` | `nk_slider_int` | `slider_int` | `nk_bool` |
 
 ## Knob
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_knob_float` | `knob_float` | `nk_bool` |
+| `native` | `nk_knob_float` | `knob_float` | `nk_bool` |
 | `unbound` | `nk_knob_int` | `knob_int` | `nk_bool` |
 
 ## Progressbar
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_progress` | `progress` | `nk_bool` |
-| `unbound` | `nk_prog` | `prog` | `nk_size` |
+| `native` | `nk_progress` | `progress` | `nk_bool` |
+| `native` | `nk_prog` | `prog` | `nk_size` |
 
 ## Color Picker
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_color_picker` | `color_picker` | `struct nk_colorf` |
-| `unbound` | `nk_color_pick` | `color_pick` | `nk_bool` |
+| `native` | `nk_color_picker` | `color_picker` | `struct nk_colorf` |
+| `native` | `nk_color_pick` | `color_pick` | `nk_bool` |
 
 ## Properties
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_property_int` | `property_int` | `nk_bool` |
-| `unbound` | `nk_property_float` | `property_float` | `nk_bool` |
+| `native` | `nk_property_int` | `property_int` | `nk_bool` |
+| `native` | `nk_property_float` | `property_float` | `nk_bool` |
 | `unbound` | `nk_property_double` | `property_double` | `nk_bool` |
-| `unbound` | `nk_propertyi` | `propertyi` | `int` |
-| `unbound` | `nk_propertyf` | `propertyf` | `float` |
-| `unbound` | `nk_propertyd` | `propertyd` | `double` |
+| `native` | `nk_propertyi` | `propertyi` | `int` |
+| `native` | `nk_propertyf` | `propertyf` | `float` |
+| `native` | `nk_propertyd` | `propertyd` | `double` |
 
 ## Text Edit
 
@@ -439,33 +439,33 @@ Enums: `nk_edit_flags`, `nk_edit_types`, `nk_edit_events`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_edit_string` | `edit_string` | `nk_flags` |
+| `native` | `nk_edit_string` | `edit_string` | `nk_flags` |
 | `unbound` | `nk_edit_string_zero_terminated` | `edit_string_zero_terminated` | `nk_flags` |
 | `unbound` | `nk_edit_buffer` | `edit_buffer` | `nk_flags` |
-| `unbound` | `nk_edit_focus` | `edit_focus` | `void` |
-| `unbound` | `nk_edit_unfocus` | `edit_unfocus` | `void` |
+| `native` | `nk_edit_focus` | `edit_focus` | `void` |
+| `native` | `nk_edit_unfocus` | `edit_unfocus` | `void` |
 
 ## Chart
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_chart_begin` | `chart_begin` | `nk_bool` |
+| `native` | `nk_chart_begin` | `chart_begin` | `nk_bool` |
 | `unbound` | `nk_chart_begin_colored` | `chart_begin_colored` | `nk_bool` |
 | `unbound` | `nk_chart_add_slot` | `chart_add_slot` | `void` |
 | `unbound` | `nk_chart_add_slot_colored` | `chart_add_slot_colored` | `void` |
-| `unbound` | `nk_chart_push` | `chart_push` | `nk_flags` |
+| `native` | `nk_chart_push` | `chart_push` | `nk_flags` |
 | `unbound` | `nk_chart_push_slot` | `chart_push_slot` | `nk_flags` |
-| `unbound` | `nk_chart_end` | `chart_end` | `void` |
-| `unbound` | `nk_plot` | `plot` | `void` |
+| `native` | `nk_chart_end` | `chart_end` | `void` |
+| `native` | `nk_plot` | `plot` | `void` |
 | `unbound` | `nk_plot_function` | `plot_function` | `void` |
 
 ## Popup
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_popup_begin` | `popup_begin` | `nk_bool` |
-| `unbound` | `nk_popup_close` | `popup_close` | `void` |
-| `unbound` | `nk_popup_end` | `popup_end` | `void` |
+| `native` | `nk_popup_begin` | `popup_begin` | `nk_bool` |
+| `native` | `nk_popup_close` | `popup_close` | `void` |
+| `native` | `nk_popup_end` | `popup_end` | `void` |
 | `unbound` | `nk_popup_get_scroll` | `popup_get_scroll` | `void` |
 | `unbound` | `nk_popup_set_scroll` | `popup_set_scroll` | `void` |
 
@@ -473,7 +473,7 @@ Enums: `nk_edit_flags`, `nk_edit_types`, `nk_edit_events`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_combo` | `combo` | `int` |
+| `native` | `nk_combo` | `combo` | `int` |
 | `unbound` | `nk_combo_separator` | `combo_separator` | `int` |
 | `unbound` | `nk_combo_string` | `combo_string` | `int` |
 | `unbound` | `nk_combo_callback` | `combo_callback` | `int` |
@@ -487,7 +487,7 @@ Enums: `nk_edit_flags`, `nk_edit_types`, `nk_edit_events`
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
 | `unbound` | `nk_combo_begin_text` | `combo_begin_text` | `nk_bool` |
-| `unbound` | `nk_combo_begin_label` | `combo_begin_label` | `nk_bool` |
+| `native` | `nk_combo_begin_label` | `combo_begin_label` | `nk_bool` |
 | `unbound` | `nk_combo_begin_color` | `combo_begin_color` | `nk_bool` |
 | `unbound` | `nk_combo_begin_symbol` | `combo_begin_symbol` | `nk_bool` |
 | `unbound` | `nk_combo_begin_symbol_label` | `combo_begin_symbol_label` | `nk_bool` |
@@ -495,34 +495,34 @@ Enums: `nk_edit_flags`, `nk_edit_types`, `nk_edit_events`
 | `unbound` | `nk_combo_begin_image` | `combo_begin_image` | `nk_bool` |
 | `unbound` | `nk_combo_begin_image_label` | `combo_begin_image_label` | `nk_bool` |
 | `unbound` | `nk_combo_begin_image_text` | `combo_begin_image_text` | `nk_bool` |
-| `unbound` | `nk_combo_item_label` | `combo_item_label` | `nk_bool` |
+| `native` | `nk_combo_item_label` | `combo_item_label` | `nk_bool` |
 | `unbound` | `nk_combo_item_text` | `combo_item_text` | `nk_bool` |
 | `unbound` | `nk_combo_item_image_label` | `combo_item_image_label` | `nk_bool` |
 | `unbound` | `nk_combo_item_image_text` | `combo_item_image_text` | `nk_bool` |
 | `unbound` | `nk_combo_item_symbol_label` | `combo_item_symbol_label` | `nk_bool` |
 | `unbound` | `nk_combo_item_symbol_text` | `combo_item_symbol_text` | `nk_bool` |
-| `unbound` | `nk_combo_close` | `combo_close` | `void` |
-| `unbound` | `nk_combo_end` | `combo_end` | `void` |
+| `native` | `nk_combo_close` | `combo_close` | `void` |
+| `native` | `nk_combo_end` | `combo_end` | `void` |
 
 ## Contextual
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_contextual_begin` | `contextual_begin` | `nk_bool` |
+| `native` | `nk_contextual_begin` | `contextual_begin` | `nk_bool` |
 | `unbound` | `nk_contextual_item_text` | `contextual_item_text` | `nk_bool` |
-| `unbound` | `nk_contextual_item_label` | `contextual_item_label` | `nk_bool` |
+| `native` | `nk_contextual_item_label` | `contextual_item_label` | `nk_bool` |
 | `unbound` | `nk_contextual_item_image_label` | `contextual_item_image_label` | `nk_bool` |
 | `unbound` | `nk_contextual_item_image_text` | `contextual_item_image_text` | `nk_bool` |
 | `unbound` | `nk_contextual_item_symbol_label` | `contextual_item_symbol_label` | `nk_bool` |
 | `unbound` | `nk_contextual_item_symbol_text` | `contextual_item_symbol_text` | `nk_bool` |
-| `unbound` | `nk_contextual_close` | `contextual_close` | `void` |
-| `unbound` | `nk_contextual_end` | `contextual_end` | `void` |
+| `native` | `nk_contextual_close` | `contextual_close` | `void` |
+| `native` | `nk_contextual_end` | `contextual_end` | `void` |
 
 ## Tooltip
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_tooltip` | `tooltip` | `void` |
+| `native` | `nk_tooltip` | `tooltip` | `void` |
 | `unbound` | `nk_tooltip_offset` | `tooltip_offset` | `void` |
 | `unbound` | `nk_do_tooltip` | `do_tooltip` | `void` |
 | `unbound` | `nk_do_tooltip_delay` | `do_tooltip_delay` | `void` |
@@ -531,18 +531,18 @@ Enums: `nk_edit_flags`, `nk_edit_types`, `nk_edit_events`
 | `skip` | `nk_tooltipfv` | `tooltipfv` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
 | `skip` | `nk_tooltipf_offset` | `tooltipf_offset` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
 | `skip` | `nk_tooltipfv_offset` | `tooltipfv_offset` | `void` (Ruby interpolates strings; not bound (`...` / va_list)) |
-| `unbound` | `nk_tooltip_begin` | `tooltip_begin` | `nk_bool` |
+| `native` | `nk_tooltip_begin` | `tooltip_begin` | `nk_bool` |
 | `unbound` | `nk_tooltip_begin_offset` | `tooltip_begin_offset` | `nk_bool` |
-| `unbound` | `nk_tooltip_end` | `tooltip_end` | `void` |
+| `native` | `nk_tooltip_end` | `tooltip_end` | `void` |
 
 ## Menu
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_menubar_begin` | `menubar_begin` | `void` |
-| `unbound` | `nk_menubar_end` | `menubar_end` | `void` |
+| `native` | `nk_menubar_begin` | `menubar_begin` | `void` |
+| `native` | `nk_menubar_end` | `menubar_end` | `void` |
 | `unbound` | `nk_menu_begin_text` | `menu_begin_text` | `nk_bool` |
-| `unbound` | `nk_menu_begin_label` | `menu_begin_label` | `nk_bool` |
+| `native` | `nk_menu_begin_label` | `menu_begin_label` | `nk_bool` |
 | `unbound` | `nk_menu_begin_image` | `menu_begin_image` | `nk_bool` |
 | `unbound` | `nk_menu_begin_image_text` | `menu_begin_image_text` | `nk_bool` |
 | `unbound` | `nk_menu_begin_image_label` | `menu_begin_image_label` | `nk_bool` |
@@ -550,13 +550,13 @@ Enums: `nk_edit_flags`, `nk_edit_types`, `nk_edit_events`
 | `unbound` | `nk_menu_begin_symbol_text` | `menu_begin_symbol_text` | `nk_bool` |
 | `unbound` | `nk_menu_begin_symbol_label` | `menu_begin_symbol_label` | `nk_bool` |
 | `unbound` | `nk_menu_item_text` | `menu_item_text` | `nk_bool` |
-| `unbound` | `nk_menu_item_label` | `menu_item_label` | `nk_bool` |
+| `native` | `nk_menu_item_label` | `menu_item_label` | `nk_bool` |
 | `unbound` | `nk_menu_item_image_label` | `menu_item_image_label` | `nk_bool` |
 | `unbound` | `nk_menu_item_image_text` | `menu_item_image_text` | `nk_bool` |
 | `unbound` | `nk_menu_item_symbol_text` | `menu_item_symbol_text` | `nk_bool` |
 | `unbound` | `nk_menu_item_symbol_label` | `menu_item_symbol_label` | `nk_bool` |
-| `unbound` | `nk_menu_close` | `menu_close` | `void` |
-| `unbound` | `nk_menu_end` | `menu_end` | `void` |
+| `native` | `nk_menu_close` | `menu_close` | `void` |
+| `native` | `nk_menu_end` | `menu_end` | `void` |
 
 ## Style
 
@@ -565,14 +565,14 @@ Enums: `nk_style_colors`, `nk_style_cursor`
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
 | `native` | `nk_style_default` | `style_default` | `void` |
-| `unbound` | `nk_style_from_table` | `style_from_table` | `void` |
+| `native` | `nk_style_from_table` | `style_from_table` | `void` |
 | `unbound` | `nk_style_load_cursor` | `style_load_cursor` | `void` |
 | `unbound` | `nk_style_load_all_cursors` | `style_load_all_cursors` | `void` |
-| `unbound` | `nk_style_get_color_by_name` | `style_get_color_by_name` | `const char*` |
+| `native` | `nk_style_get_color_by_name` | `style_get_color_by_name` | `const char*` |
 | `unbound` | `nk_style_set_font` | `style_set_font` | `void` |
-| `unbound` | `nk_style_set_cursor` | `style_set_cursor` | `nk_bool` |
-| `unbound` | `nk_style_show_cursor` | `style_show_cursor` | `void` |
-| `unbound` | `nk_style_hide_cursor` | `style_hide_cursor` | `void` |
+| `native` | `nk_style_set_cursor` | `style_set_cursor` | `nk_bool` |
+| `native` | `nk_style_show_cursor` | `style_show_cursor` | `void` |
+| `native` | `nk_style_hide_cursor` | `style_hide_cursor` | `void` |
 | `unbound` | `nk_style_push_font` | `style_push_font` | `nk_bool` |
 | `unbound` | `nk_style_push_float` | `style_push_float` | `nk_bool` |
 | `unbound` | `nk_style_push_vec2` | `style_push_vec2` | `nk_bool` |
@@ -782,13 +782,13 @@ Enums: `nk_text_edit_type`, `nk_text_edit_mode`
 
 | Status | C | Ruby Native | Retorno |
 |---|---|---|---|
-| `unbound` | `nk_filter_default` | `filter_default` | `nk_bool` |
-| `unbound` | `nk_filter_ascii` | `filter_ascii` | `nk_bool` |
-| `unbound` | `nk_filter_float` | `filter_float` | `nk_bool` |
-| `unbound` | `nk_filter_decimal` | `filter_decimal` | `nk_bool` |
-| `unbound` | `nk_filter_hex` | `filter_hex` | `nk_bool` |
-| `unbound` | `nk_filter_oct` | `filter_oct` | `nk_bool` |
-| `unbound` | `nk_filter_binary` | `filter_binary` | `nk_bool` |
+| `native` | `nk_filter_default` | `filter_default` | `nk_bool` |
+| `native` | `nk_filter_ascii` | `filter_ascii` | `nk_bool` |
+| `native` | `nk_filter_float` | `filter_float` | `nk_bool` |
+| `native` | `nk_filter_decimal` | `filter_decimal` | `nk_bool` |
+| `native` | `nk_filter_hex` | `filter_hex` | `nk_bool` |
+| `native` | `nk_filter_oct` | `filter_oct` | `nk_bool` |
+| `native` | `nk_filter_binary` | `filter_binary` | `nk_bool` |
 | `unbound` | `nk_textedit_init_default` | `textedit_init_default` | `void` |
 | `unbound` | `nk_textedit_init` | `textedit_init` | `void` |
 | `unbound` | `nk_textedit_init_fixed` | `textedit_init_fixed` | `void` |

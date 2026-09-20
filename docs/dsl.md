@@ -1,6 +1,6 @@
 # DSL Granada
 
-A DSL é a camada de cima: Ruby idiomático por cima de `Granada::Native`. **Ainda não está implementada** (Fase E). Este arquivo é o contrato para quando formos escrever UIs.
+A DSL é a camada de cima: Ruby idiomático por cima de `Granada::Context`. O bloco de `Granada.app` (e o de `window`) roda com `instance_eval` em um `Granada::UI`.
 
 ## Forma
 
@@ -18,7 +18,7 @@ Granada.app title: "Granada", width: 800, height: 600 do
 end
 ```
 
-O bloco de `app` e o de `window` rodam com `instance_eval` em um `Granada::UI`, então `window`, `label`, `button` não precisam do prefixo `Granada.`.
+`Granada.app` exige o host GLFW (`Granada::Host.available?`). Sem GLFW, dá para instanciar `Granada::UI.new(ctx)` e chamar os mesmos métodos dentro de um `ctx.begin` headless (é o que os testes fazem).
 
 ## Regras
 
@@ -29,24 +29,40 @@ O bloco de `app` e o de `window` rodam com `instance_eval` em um `Granada::UI`, 
 5. **`window` sem x/y/w/h** preenche a janela nativa (`fill: true` implícito).
 6. **Sem `nk_labelf`.** Use interpolação: `label "fps #{fps}"`.
 
-## Mapa curto (alvo)
+## Mapa curto
 
 | DSL | Native |
 |---|---|
-| `app(...)` | Host loop |
+| `app(...)` | `Host.run` (GLFW loop) |
 | `window(name, **opts) { }` | `nk_begin` / `nk_end` |
 | `row(height:, cols:) { }` | `nk_layout_row_dynamic` |
+| `row(static:, …)` | `nk_layout_row_static` |
 | `label(text, align:)` | `nk_label` |
 | `button(text) { }` | `nk_button_label` |
 | `checkbox(text, value)` | `nk_checkbox_label` → devolve bool |
-| `slider(value, min:, max:, step:)` | `nk_slider_float` → devolve float |
-| `property(name, value, min:, max:, step:)` | `nk_property_*` |
-| `edit(text, **opts)` | `nk_edit_string` + buffer Ruby |
+| `slider(value, min:, max:, step:)` | `nk_slider_float` / `nk_slider_int` |
+| `property(name, value, min:, max:, step:)` | `nk_propertyi` / `nk_propertyf` |
+| `edit(text, **opts)` | `nk_edit_string` (muta a String) |
+| `combo(items, selected)` | `nk_combo` |
 | `group(name) { }` | `nk_group_begin` / `nk_group_end` |
 | `tree(id:, title:) { }` | `nk_tree_push_hashed` / `nk_tree_pop` |
-| `quit` | fecha a janela do host |
+| `menubar` / `menu` / `menu_item` | menubar + menu |
+| `quit` | `Host.quit!` (Esc / Ctrl+Q / Cmd+Q também) |
 
 Native continua público: `Granada::Native` e `Granada::Context` para quem quiser o C na cara.
+
+## Flags de `window`
+
+| kwarg | default | C |
+|---|---|---|
+| `border:` | true | `WINDOW_BORDER` |
+| `movable:` | true | `WINDOW_MOVABLE` |
+| `scalable:` | true | `WINDOW_SCALABLE` |
+| `title:` | true | `WINDOW_TITLE` |
+| `closable:` | false | `WINDOW_CLOSABLE` |
+| `minimizable:` | false | `WINDOW_MINIMIZABLE` |
+| `no_scrollbar:` | false | `WINDOW_NO_SCROLLBAR` |
+| `fill:` | true se não passar x/y | retângulo = tamanho da janela GLFW |
 
 ## O que a DSL *não* é
 

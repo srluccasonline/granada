@@ -11,6 +11,8 @@ Nuklear
   Homepage: https://github.com/Immediate-Mode-UI/Nuklear
   Version vendored: v4.13.3
   License: MIT or public domain (see vendor/nuklear/LICENSE)
+  GLFW+OpenGL 3 demo backend: vendor/nuklear/demo/glfw_opengl3/nuklear_glfw_gl3.h
+    (same Nuklear tree / license; used only by Granada::Host)
 
 mruby
   Lightweight Ruby implementation.

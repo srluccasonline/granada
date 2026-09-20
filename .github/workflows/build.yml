@@ -16,5 +16,11 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
+      - name: Install GLFW + GLEW (macOS)
+        if: runner.os == 'macOS'
+        run: brew install glfw glew
+      - name: Install GLFW + GLEW (Ubuntu)
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y libglfw3-dev libglew-dev pkg-config
       - name: Build mruby 4.0.0 + Granada and run gem tests
         run: make test

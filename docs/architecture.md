@@ -59,7 +59,9 @@ Definidas uma vez em `mrbgems/mruby-granada/include/granada_config.h` e incluíd
 
 ## Host
 
-`host_glfw.c` (Fase D) liga GLFW 3 + o header oficial `nuklear_glfw_gl3.h`. Compila só se `pkg-config glfw3` existir. O core do gem continua útil sem isso.
+`granada_host.c` liga GLFW 3 + o header oficial `nuklear_glfw_gl3.h` (vendored em `vendor/nuklear/demo/glfw_opengl3/`). Compila o loop só se `pkg-config glfw3` **e** `glew` existirem (`GRANADA_HAS_GLFW`). Sem isso, `Granada::Host.available?` é `false` e o core (Native + testes headless) continua útil.
+
+O host cria o `nk_context` do backend GLFW e o envolve num `Granada::Context` com `nk_ext` (não chama `nk_free` no DFREE — o shutdown é do GLFW).
 
 ## O que não entra no Native de primeira
 

@@ -29,6 +29,7 @@ mrb_mruby_granada_gem_init(mrb_state *mrb)
   mrb_granada_flags_init(mrb, mod);
   mrb_granada_types_init(mrb, mod, native);
   mrb_granada_context_init(mrb, mod, native);
+  mrb_granada_host_init(mrb, mod);
 }
 
 void

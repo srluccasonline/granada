@@ -75,4 +75,4 @@ Primeiro passo: `nk_style_from_table` / constantes de cor. Skinning com imagens 
 5. Ações (salvar, fechar) no `if button` / bloco, não em callbacks guardados
 6. Conferir o frame: abrir, clicar, reabrir — o estado Ruby ainda está certo?
 
-Quando a DSL existir, os exemplos `examples/hello.rb` e `examples/kitchen_sink.rb` são o código a copiar. Até lá, Native + este guia.
+Os exemplos `examples/hello.rb` e `examples/kitchen_sink.rb` são o código a copiar. Native continua público para casos que a DSL não cobre.

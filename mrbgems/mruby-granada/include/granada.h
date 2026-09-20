@@ -9,6 +9,7 @@
 #include <mruby/class.h>
 #include <mruby/data.h>
 #include <mruby/error.h>
+#include <mruby/gc.h>
 #include <mruby/numeric.h>
 #include <mruby/string.h>
 
@@ -36,6 +37,8 @@ struct nk_image granada_image_get(mrb_state *mrb, mrb_value obj);
 
 typedef struct granada_ctx {
   struct nk_context nk;
+  struct nk_context *nk_ext; /* non-NULL: wrap a host-owned context */
+  int owned;                 /* 1: we nk_free + atlas_clear */
   struct nk_font_atlas atlas;
   struct nk_font *font;
   float *floats;
@@ -45,8 +48,14 @@ typedef struct granada_ctx {
 struct nk_context *granada_context_ptr(mrb_state *mrb, mrb_value obj);
 granada_ctx *granada_ctx_get(mrb_state *mrb, mrb_value obj);
 float *granada_ctx_floats(mrb_state *mrb, mrb_value obj, int n);
+mrb_value granada_context_wrap_external(mrb_state *mrb, struct nk_context *nk);
 mrb_value granada_yield(mrb_state *mrb, void *data);
+mrb_value granada_open_block(mrb_state *mrb, struct nk_context *ctx, nk_bool open,
+                             void (*endfn)(struct nk_context *), mrb_value blk);
 void granada_define_native_fwd(mrb_state *mrb, struct RClass *native, const char *name, mrb_aspec spec);
+void granada_define_native_fwds(mrb_state *mrb, struct RClass *native, const char **names);
+
+nk_plugin_filter granada_filter_from(mrb_state *mrb, mrb_value v);
 
 void mrb_granada_types_init(mrb_state *mrb, struct RClass *mod, struct RClass *native);
 void mrb_granada_flags_init(mrb_state *mrb, struct RClass *mod);
@@ -54,5 +63,9 @@ void mrb_granada_context_init(mrb_state *mrb, struct RClass *mod, struct RClass 
 void mrb_granada_input_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
 void mrb_granada_window_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
 void mrb_granada_layout_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_widgets_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_containers_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_style_init(mrb_state *mrb, struct RClass *ctx, struct RClass *native);
+void mrb_granada_host_init(mrb_state *mrb, struct RClass *mod);
 
 #endif /* GRANADA_H */

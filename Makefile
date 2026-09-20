@@ -19,7 +19,7 @@ else
   RUBY ?= ruby
 endif
 
-.PHONY: all mruby test inventory hello clean distclean check-ruby
+.PHONY: all mruby test inventory hello kitchen clean distclean check-ruby
 
 all: mruby
 
@@ -41,6 +41,9 @@ inventory: $(NUKLEAR_H)
 
 hello: mruby
 	$(MRUBY_DIR)/bin/mruby examples/hello.rb
+
+kitchen: mruby
+	$(MRUBY_DIR)/bin/mruby examples/kitchen_sink.rb
 
 clean:
 	@if [ -d $(MRUBY_DIR) ]; then $(MAKE) -C $(MRUBY_DIR) clean; fi

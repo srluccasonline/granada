@@ -25,7 +25,7 @@ O estado de cada função C está em [`docs/api-map.md`](docs/api-map.md). O che
 |---|---|
 | Nuklear | v4.13.3 (`vendor/nuklear/nuklear.h`) |
 | mruby | **4.0.0** (clonado em `vendor/mruby` no `make`, não commitado) |
-| Host (ainda não ligado) | GLFW 3 + OpenGL 3 |
+| Host | GLFW 3 + OpenGL 3 (opcional; `pkg-config glfw3 glew`) |
 
 mruby 4.0 é a tag estável. O PoC antigo em `nuklear_ruby` **não** é copiado: aquele C mistura host GLFW com uma fatia mínima da API. Granada reescreve os bindings contra a C API do mruby 4.0 (`MRB_ENSURE`, sem `mrb_alloca`, presym sempre ligado).
 
@@ -34,7 +34,7 @@ mruby 4.0 é a tag estável. O PoC antigo em `nuklear_ruby` **não** é copiado:
 - Ruby ≥ 2.7 para *buildar* o mruby (no macOS: Homebrew `ruby`, hoje 4.x)
 - `clang` / Xcode CLT ou `gcc`
 - `git`
-- Mais tarde, para o host: `glfw` (`brew install glfw`)
+- Para o host (janela): `glfw` + `glew` (`brew install glfw glew`)
 
 ## Build
 
@@ -45,37 +45,34 @@ make
 Clona mruby 4.0.0, compila o gem `mruby-granada` (incluindo a implementação do Nuklear) e deixa `vendor/mruby/bin/mruby` com o módulo `Granada` linkado.
 
 ```sh
-make hello    # imprime Granada::VERSION
-make test     # testes mruby do gem
+make hello      # janela GLFW, ou smoke headless se o host não compilou
+make kitchen    # examples/kitchen_sink.rb
+make test       # testes mruby do gem (não abrem janela)
 make inventory  # regenera docs/api-map.md a partir de nuklear.h
 ```
 
-## Uso (hoje)
-
-```ruby
-puts Granada::VERSION          # => "0.1.0"
-puts Granada::NUKLEAR_VERSION  # => "4.13.3"
-Granada::Native                # módulo 1:1 (ainda vazio)
-```
-
-A DSL e a janela nativa entram nas fases D/E do `TODO.md`. Quando existirem:
+## Uso
 
 ```ruby
 Granada.app title: "Granada", width: 800, height: 600 do
   window "demo", fill: true do
-    row height: 32 do
+    row height: 32, cols: 2 do
       button("Ok") { quit }
       label "hello", align: :center
     end
+    @on = checkbox("Enabled", @on)
+    @vol = slider(@vol, min: 0.0, max: 1.0)
   end
 end
 ```
+
+`Granada::Native` e `Granada::Context` são o mapeamento 1:1. A DSL (`Granada.app` / `Granada::UI`) é o caminho usual. Sem GLFW, `Granada::Host.available?` é `false` e os testes exercitam Native headless.
 
 ## Documentação
 
 - [`docs/architecture.md`](docs/architecture.md) — camadas, tipos, ciclo de frame
 - [`docs/api-map.md`](docs/api-map.md) — cada `NK_API` → Ruby
-- [`docs/dsl.md`](docs/dsl.md) — DSL idiomática (em construção)
+- [`docs/dsl.md`](docs/dsl.md) — DSL idiomática (`Granada.app` / `Granada::UI`)
 - [`docs/building-uis.md`](docs/building-uis.md) — como pensar UI em immediate mode
 - [`docs/mruby4.md`](docs/mruby4.md) — notas da C API mruby 4.0 que o binding usa
 
@@ -83,7 +80,7 @@ end
 
 ```
 mrbgems/mruby-granada/   gem C + mrblib
-vendor/nuklear/          nuklear.h v4.13.3 + LICENSE
+vendor/nuklear/          nuklear.h v4.13.3 + GLFW GL3 backend + LICENSE
 tools/inventory_nuklear.rb
 examples/
 docs/
